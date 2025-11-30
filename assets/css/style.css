@@ -806,3 +806,8 @@ footer {
     gap: 6px;
   }
 }
+.modal-tab {
+  pointer-events: auto !important;
+  cursor: pointer !important;
+}
+

@@ -1,3 +1,5 @@
+
+document.addEventListener("DOMContentLoaded", () => {
 // assets/js/app.js
 // ========================================
 //  EduMentor DEMO - FRONTEND + LOCALSTORAGE
@@ -1001,4 +1003,5 @@ document.addEventListener("DOMContentLoaded", () => {
       openEditProfileModal();
     }
   });
+});
 });
