@@ -1,134 +1,479 @@
 <!DOCTYPE html>
 <html lang="vi">
 <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta charset="UTF-8" />
+  <title>EduMentor Demo</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
 
-    <title>EduMentor - Gia sư tận tâm</title>
-
-    <!-- CSS chính -->
-    <link rel="stylesheet" href="style.css" />
-
-    <!-- Font + Icon -->
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap" rel="stylesheet" />
+  <!-- CSS external -->
+  <link rel="stylesheet" href="assets/css/style.css" />
 </head>
 
 <body>
 
-    <!-- ================= NAVBAR ================= -->
-    <header class="navbar">
-        <div class="nav-left">
-            <img src="assets/logo.png" class="logo" />
-            <span class="nav-title">Gia sư tận tâm – Tiến xa vạn dặm</span>
+  <!-- NAVBAR -->
+  <header class="navbar">
+    <div class="container navbar-inner">
+      <div class="nav-left">
+        <div class="logo-wrapper">
+          <div class="logo-circle"></div>
+          <div class="logo-text">EduMentor</div>
         </div>
 
-        <div class="nav-right">
-            <a href="#" class="nav-link" data-page="home">Trang chủ</a>
-            <a href="#" class="nav-link" data-page="tutors">Dành cho gia sư</a>
-            <a href="#" class="nav-link" data-page="parents">Dành cho phụ huynh</a>
-            <a href="#" class="nav-link" data-page="profile">Hồ sơ cá nhân</a>
-            <a href="#" class="nav-link" data-page="test">Kiểm tra năng lực</a>
-
-            <button id="btnLogin" class="btn-primary small">Đăng nhập</button>
-            <button id="btnRegister" class="btn-outline small">Đăng ký</button>
+        <div class="nav-pages">
+          <button class="nav-page-btn active" data-target="home-section">Trang chủ</button>
+          <button class="nav-page-btn" data-target="classes-section">Danh sách lớp</button>
+          <button class="nav-page-btn" data-target="tutor-section">Gia sư</button>
+          <button class="nav-page-btn" data-target="parent-posts-section">Bài đăng của tôi</button>
+          <button class="nav-page-btn" data-target="create-post-section">Đăng bài tìm gia sư</button>
         </div>
-    </header>
-
-    <!-- góc phải trên cùng -->
-    <div class="corner-label">
-        Trang web là sản phẩm của môn học Quản lí dự án cho kĩ sư – HK251
+      </div>
+      <div class="nav-right">
+        <div class="nav-note">
+          Trang web là sản phẩm của môn học
+          <b>Quản lí dự án cho kĩ sư – HK251</b>.
+        </div>
+        <div class="nav-right-bottom">
+          <div id="guest-actions">
+            <button class="btn btn-outline" id="open-register">
+              <span class="btn-icon">📝</span> Đăng kí
+            </button>
+            <button class="btn btn-primary" id="open-login">
+              <span class="btn-icon">🔐</span> Đăng nhập
+            </button>
+          </div>
+          <div id="user-actions" class="hidden">
+            <span id="current-user-label" class="user-pill"></span>
+            <button class="btn btn-outline" id="logout-btn">Đăng xuất</button>
+          </div>
+        </div>
+      </div>
     </div>
+  </header>
 
-    <!-- =============== HERO SECTION =============== -->
-    <section id="page-home" class="page active">
+  <main>
+    <!-- HOME -->
+    <section id="home-section">
+      <div class="container">
         <div class="hero">
-            <div class="hero-text">
-                <h1>Gia sư tận tâm – Tiến xa vạn dặm</h1>
-                <p>Đồng hành cùng phụ huynh & học sinh trên hành trình học tập.</p>
-                <button class="btn-primary large" data-page="parents">Tìm gia sư ngay</button>
+          <div class="hero-grid">
+            <div>
+              <h1>EDUMENTOR</h1>
+              <p class="hero-text">
+                EduMentor là nền tảng kết nối gia sư và học viên uy tín, với đội ngũ gia sư chất lượng cao,
+                phương pháp giảng dạy hiện đại và hệ thống quản lý học tập thông minh. Chúng tôi cam kết
+                mang lại trải nghiệm học tập tốt nhất cho học viên.
+              </p>
+              <p class="hero-text">
+                Chỉ với vài bước đơn giản, bạn có thể tìm được gia sư phù hợp hoặc nhận lớp dạy thêm đúng chuyên môn.
+              </p>
+
+              <div class="hero-cta-row">
+                <button class="btn btn-primary" id="hero-go-classes">
+                  🔍 Tìm lớp ngay
+                </button>
+                <button class="btn btn-outline" id="hero-go-register">
+                  ✨ Trở thành gia sư
+                </button>
+              </div>
+
+              <div class="hero-badge">
+                ⭐ Hỗ trợ kết nối minh bạch – Phí nhận lớp rõ ràng cho gia sư
+              </div>
             </div>
 
-            <div class="hero-image">
-                <img src="assets/hero.jpg" alt="hero image" />
+            <div class="hero-image-wrapper">
+              <img
+                class="hero-image"
+                src="https://images.pexels.com/photos/3807755/pexels-photo-3807755.jpeg?auto=compress&cs=tinysrgb&w=900"
+                alt="Gia sư và học sinh"
+              />
+              <div class="hero-image-tag">
+                👩‍🏫 Gia sư tận tâm · 👨‍🎓 Học sinh tiến bộ
+              </div>
             </div>
+          </div>
+        </div>
+        <div class="why-section">
+          <h2 class="section-title">Tại sao chọn EduMentor?</h2>
+          <div class="cards-grid">
+            <div class="card">
+              <div class="card-icon">🎓</div>
+              <div class="card-title">Gia sư chất lượng</div>
+              <div class="card-text">
+                Đội ngũ gia sư được tuyển chọn kỹ lưỡng, có trình độ chuyên môn cao
+                và kinh nghiệm giảng dạy phong phú.
+              </div>
+            </div>
+
+            <div class="card">
+              <div class="card-icon">🕒</div>
+              <div class="card-title">Linh hoạt thời gian</div>
+              <div class="card-text">
+                Học mọi lúc, mọi nơi với lịch học linh hoạt được sắp xếp theo yêu cầu của học viên.
+              </div>
+            </div>
+
+            <div class="card">
+              <div class="card-icon">📈</div>
+              <div class="card-title">Hiệu quả cao</div>
+              <div class="card-text">
+                Phương pháp giảng dạy cá nhân hóa giúp học viên tiếp thu kiến thức nhanh chóng và hiệu quả.
+              </div>
+            </div>
+          </div>
         </div>
 
-        <div class="home-features">
-            <div class="feature-box">
-                <img src="assets/teach1.jpg" />
-                <h3>Gia sư chất lượng</h3>
-                <p>Đã qua kiểm tra năng lực, hồ sơ rõ ràng.</p>
+        <div class="how-section">
+          <h2 class="section-title">Cách thức hoạt động</h2>
+          <div class="how-cards">
+            <div class="card">
+              <div class="card-icon">👤</div>
+              <div class="card-title">Đăng ký tài khoản</div>
+              <div class="card-text">
+                Tạo tài khoản học viên hoặc gia sư trong vài bước đơn giản.
+              </div>
             </div>
 
-            <div class="feature-box">
-                <img src="assets/teach2.jpg" />
-                <h3>Kết nối nhanh chóng</h3>
-                <p>Gia sư nhận lớp – phụ huynh duyệt chỉ trong vài phút.</p>
+            <div class="card">
+              <div class="card-icon">🔍</div>
+              <div class="card-title">Tìm kiếm phù hợp</div>
+              <div class="card-text">
+                Học viên tìm gia sư hoặc gia sư tìm lớp học phù hợp với nhu cầu.
+              </div>
             </div>
 
-            <div class="feature-box">
-                <img src="assets/teach3.jpg" />
-                <h3>Thanh toán minh bạch</h3>
-                <p>Phí nhận lớp: 25% tháng đầu tiên.</p>
+            <div class="card">
+              <div class="card-icon">📞</div>
+              <div class="card-title">Kết nối & Thanh toán</div>
+              <div class="card-text">
+                Phụ huynh duyệt gia sư, gia sư thanh toán phí nhận lớp để hoàn tất kết nối.
+              </div>
             </div>
+          </div>
         </div>
+
+      </div>
     </section>
 
-    <!-- =================== PAGE: TUTORS ==================== -->
-    <section id="page-tutors" class="page">
-        <h2 class="page-title">Dành cho Gia sư</h2>
-        <div id="tutor-class-list"></div>
+    <!-- CLASSES FOR TUTOR / GUEST -->
+    <section id="classes-section" class="hidden">
+      <div class="container">
+        <h2 class="page-title">DANH SÁCH BÀI ĐĂNG CẦN GIA SƯ</h2>
+        <div id="classes-list"></div>
+        <p class="muted">
+          Đăng nhập với vai trò <b>Gia sư</b> để bấm "Đăng kí nhận lớp" và theo dõi trạng thái.
+        </p>
+      </div>
     </section>
 
-    <!-- =================== PAGE: PARENTS ==================== -->
-    <section id="page-parents" class="page">
-        <h2 class="page-title">Dành cho Phụ huynh – Học sinh</h2>
-        <div id="parent-class-list"></div>
-    </section>
+    <!-- TUTOR PROFILE & REGISTERED CLASSES -->
+    <section id="tutor-section" class="hidden">
+      <div class="container">
+        <h2 class="page-title">THÔNG TIN GIA SƯ</h2>
 
-    <!-- =================== PAGE: PROFILE ==================== -->
-    <section id="page-profile" class="page">
-        <h2 class="page-title">Hồ sơ của bạn</h2>
-        <div id="profile-container"></div>
-    </section>
-
-    <!-- =================== PAGE: TEST ==================== -->
-    <section id="page-test" class="page">
-        <h2 class="page-title">Bài kiểm tra năng lực</h2>
-        <div id="test-container"></div>
-    </section>
-
-    <!-- =================== LOGIN MODAL ==================== -->
-    <div id="modal-login" class="modal hidden">
-        <div class="modal-content">
-            <h3>Đăng nhập</h3>
-            <input id="login-username" placeholder="Tên đăng nhập" />
-            <input id="login-password" type="password" placeholder="Mật khẩu" />
-            <button class="btn-primary" id="confirm-login">Đăng nhập</button>
-            <button class="btn-close" data-close>Đóng</button>
+        <div id="tutor-section-content">
+          <!-- JS render -->
         </div>
+      </div>
+    </section>
+
+    <!-- PARENT POSTS -->
+    <section id="parent-posts-section" class="hidden">
+      <div class="container">
+        <h2 class="page-title">CÁC BÀI ĐĂNG CỦA PHỤ HUYNH - HỌC SINH</h2>
+        <div id="parent-posts-content"></div>
+      </div>
+    </section>
+
+    <!-- CREATE POST -->
+    <section id="create-post-section" class="hidden">
+      <div class="container">
+        <h2 class="page-title">ĐĂNG BÀI TÌM GIA SƯ</h2>
+        <div id="create-post-content">
+          <p class="muted">Vui lòng đăng nhập với vai trò <b>Phụ huynh/Học sinh</b> để đăng bài.</p>
+        </div>
+      </div>
+    </section>
+  </main>
+  <!-- FOOTER -->
+  <footer>
+    <div class="container">
+      <div class="footer-top">
+        <div>
+          <div class="footer-title">EDU MENTOR</div>
+          <p>
+            Kết nối gia sư chất lượng với học viên trên toàn quốc.<br />
+            Cam kết mang lại trải nghiệm học tập tốt nhất.
+          </p>
+          <div class="social-row">
+            <span>📘</span>
+            <span>📸</span>
+            <span>🐦</span>
+          </div>
+        </div>
+
+        <div>
+          <div class="footer-title">Liên kết nhanh</div>
+          <div class="footer-links">
+            <a href="#">Trang chủ</a>
+            <a href="#">Tìm gia sư</a>
+            <a href="#">Đăng ký gia sư</a>
+          </div>
+        </div>
+
+        <div>
+          <div class="footer-title">Liên hệ</div>
+          <p>📞 0123 456 789</p>
+          <p>✉ anh.nguyen2510@hcmut.edu.vn</p>
+          <p>📍 Trường Đại học Bách khoa - ĐHQG TP.HCM</p>
+        </div>
+      </div>
+
+      <div class="footer-bottom">
+        © 2025 EDU MENTOR. All rights reserved.
+      </div>
     </div>
+  </footer>
 
-    <!-- =================== REGISTER MODAL ==================== -->
-    <div id="modal-register" class="modal hidden">
-        <div class="modal-content">
-            <h3>Đăng ký tài khoản</h3>
-            <input id="reg-username" placeholder="Tên đăng nhập" />
-            <input id="reg-password" type="password" placeholder="Mật khẩu" />
-            <select id="reg-role">
-                <option value="tutor">Gia sư</option>
-                <option value="parent">Phụ huynh / Học sinh</option>
-            </select>
-            <button class="btn-primary" id="confirm-register">Đăng ký</button>
-            <button class="btn-close" data-close>Đóng</button>
+  <!-- LOGIN MODAL -->
+  <div id="login-modal" class="modal-backdrop hidden">
+    <div class="modal">
+      <button class="modal-close" data-close-modal="login-modal">✕</button>
+      <div class="modal-title">ĐĂNG NHẬP</div>
+
+      <div class="modal-tabs">
+        <button class="modal-tab active" data-login-target="student">
+          Học sinh - Phụ huynh
+        </button>
+        <button class="modal-tab" data-login-target="tutor">
+          Gia sư
+        </button>
+      </div>
+
+      <!-- Student / Parent -->
+      <form id="login-student-form">
+        <div class="form-group">
+          <label>Tên tài khoản *</label>
+          <input id="login-student-username" type="text" class="input" placeholder="Nhập tên tài khoản" />
         </div>
-    </div>
 
-    <!-- JS logic -->
-    <script src="app.js"></script>
-    <script src="tutor.js"></script>
-    <script src="parent.js"></script>
-    <script src="test.js"></script>
+        <div class="form-group password-wrapper">
+          <label>Mật khẩu *</label>
+          <input
+            id="login-student-password"
+            type="password"
+            class="input password-input"
+            placeholder="Nhập mật khẩu"
+          />
+          <button type="button" class="toggle-password">👁</button>
+        </div>
+
+        <button id="login-student-submit" type="button" class="btn btn-primary" style="width: 100%; margin-top: 8px;">
+          🔓 Đăng nhập
+        </button>
+      </form>
+
+      <!-- Tutor -->
+      <form id="login-tutor-form" class="hidden">
+        <div class="form-group">
+          <label>Tên tài khoản *</label>
+          <input id="login-tutor-username" type="text" class="input" placeholder="Nhập tên tài khoản" />
+        </div>
+
+        <div class="form-group password-wrapper">
+          <label>Mật khẩu *</label>
+          <input
+            id="login-tutor-password"
+            type="password"
+            class="input password-input"
+            placeholder="Nhập mật khẩu"
+          />
+          <button type="button" class="toggle-password">👁</button>
+        </div>
+
+        <button id="login-tutor-submit" type="button" class="btn btn-primary" style="width: 100%; margin-top: 8px;">
+          🔓 Đăng nhập
+        </button>
+      </form>
+
+      <div class="modal-footer-text">
+        Bạn chưa có tài khoản?
+        <a href="#" id="open-register-from-login">Đăng ký ngay</a>
+      </div>
+    </div>
+  </div>
+  <!-- REGISTER MODAL -->
+  <div id="register-modal" class="modal-backdrop hidden">
+    <div class="modal">
+      <button class="modal-close" data-close-modal="register-modal">✕</button>
+      <div class="modal-title">ĐĂNG KÝ TÀI KHOẢN</div>
+
+      <form id="register-form">
+        <div class="form-group" style="display:flex; gap:10px;">
+          <div style="flex:1;">
+            <label>Họ *</label>
+            <input id="reg-lastname" type="text" class="input" />
+          </div>
+          <div style="flex:1;">
+            <label>Tên *</label>
+            <input id="reg-firstname" type="text" class="input" />
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label>Email *</label>
+          <input id="reg-email" type="email" class="input" />
+        </div>
+
+        <div class="form-group">
+          <label>Số điện thoại *</label>
+          <input id="reg-phone" type="tel" class="input" />
+        </div>
+
+        <div class="form-group">
+          <label>Tên tài khoản *</label>
+          <input id="reg-username" type="text" class="input" />
+        </div>
+
+        <div class="form-group password-wrapper">
+          <label>Mật khẩu *</label>
+          <input
+            id="reg-password"
+            type="password"
+            class="input password-input"
+            value="123456"
+          />
+          <button type="button" class="toggle-password">👁</button>
+        </div>
+
+        <div class="form-group">
+          <label>Bạn là</label>
+          <select id="reg-role" class="select">
+            <option value="gia-su">Gia sư</option>
+            <option value="hoc-sinh">Học sinh</option>
+            <option value="phu-huynh">Phụ huynh</option>
+          </select>
+        </div>
+
+        <button id="register-submit" type="button" class="btn btn-primary" style="width: 100%; margin-top: 8px;">
+          ✨ Đăng ký
+        </button>
+      </form>
+
+      <div class="modal-footer-text">
+        Đã có tài khoản?
+        <a href="#" id="open-login-from-register">Đăng nhập ngay</a>
+      </div>
+    </div>
+  </div>
+
+  <!-- EDIT PROFILE MODAL -->
+  <div id="edit-profile-modal" class="modal-backdrop hidden">
+    <div class="modal">
+      <button class="modal-close" data-close-modal="edit-profile-modal">✕</button>
+      <div class="modal-title">Chỉnh sửa thông tin</div>
+
+      <form>
+        <div class="form-group" style="display:flex; gap:10px;">
+          <div style="flex:1;">
+            <label>Họ *</label>
+            <input id="edit-lastname" type="text" class="input" />
+          </div>
+
+          <div style="flex:1;">
+            <label>Tên *</label>
+            <input id="edit-firstname" type="text" class="input" />
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label>Số điện thoại *</label>
+          <input id="edit-phone" type="tel" class="input" />
+        </div>
+
+        <div class="form-group">
+          <label>Email *</label>
+          <input id="edit-email" type="email" class="input" />
+        </div>
+
+        <div class="form-group">
+          <label>Học vấn</label>
+          <input id="edit-edu" type="text" class="input" />
+        </div>
+
+        <div class="form-group">
+          <label>Kinh nghiệm</label>
+          <input id="edit-exp" type="text" class="input" />
+        </div>
+
+        <div class="form-group">
+          <label>Môn dạy</label>
+          <input id="edit-subject" type="text" class="input" />
+        </div>
+
+        <div class="form-group">
+          <label>Giới tính</label>
+          <select id="edit-gender" class="select">
+            <option>Nam</option>
+            <option>Nữ</option>
+            <option>Khác</option>
+          </select>
+        </div>
+
+        <div style="display:flex; justify-content:flex-end; gap:8px; margin-top:6px;">
+          <button type="button" class="btn btn-outline" data-close-modal="edit-profile-modal">
+            Hủy
+          </button>
+
+          <button type="button" class="btn btn-primary">
+            Lưu thay đổi
+          </button>
+        </div>
+      </form>
+    </div>
+  </div>
+  <!-- PAYMENT MODAL -->
+  <div id="payment-modal" class="modal-backdrop hidden">
+    <div class="modal">
+      <button class="modal-close" data-close-modal="payment-modal">✕</button>
+      <div class="modal-title">Thanh toán phí nhận lớp</div>
+
+      <p style="font-size:13px; color:#4a5568; margin-bottom:6px; text-align:center;">
+        Gia sư vui lòng thanh toán <b>phí nhận lớp</b> để hoàn tất kết nối với phụ huynh.
+      </p>
+
+      <p id="payment-fee-text" style="font-size:13px; color:#2d3748; margin-bottom:10px; text-align:center;">
+        Phí nhận lớp: 25% lương tháng đầu tiên.
+      </p>
+
+      <div class="qr-options">
+        <div class="qr-card">
+          <div class="qr-title">MoMo (Demo)</div>
+          <div>Số điện thoại: <b>0900 000 000</b></div>
+          <div>Chủ tài khoản: <b>EDUMENTOR</b></div>
+          <div class="qr-box">QR MoMo mẫu</div>
+          <div class="qr-note">Nội dung chuyển khoản: <b>Phi nhan lop - EduMentor</b></div>
+        </div>
+
+        <div class="qr-card">
+          <div class="qr-title">Vietcombank</div>
+          <div>STK: <b>123456789</b></div>
+          <div>Chủ tài khoản: <b>EDUMENTOR</b></div>
+          <div>Ngân hàng: <b>VIETCOMBANK</b></div>
+          <div class="qr-box">QR Vietcombank mẫu</div>
+          <div class="qr-note">Nội dung: <b>Phi nhan lop - EduMentor</b></div>
+        </div>
+      </div>
+
+      <button id="payment-confirm" class="btn btn-primary" style="width:100%; margin-top:4px;">
+        ✅ Xác nhận đã thanh toán
+      </button>
+    </div>
+  </div>
+
+  <!-- JS external -->
+  <script src="assets/js/app.js" defer></script>
 
 </body>
 </html>
