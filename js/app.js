@@ -877,33 +877,25 @@ document.addEventListener("DOMContentLoaded", () => {
     alert("Đã đăng xuất.");
   });
 
-  // Payment confirm
-  document
-    .getElementById("payment-confirm")
-    ?.addEventListener("click", handlePaymentConfirm);
+    // ----------------- GLOBAL CLICK (DELEGATION) -----------------
+    document.addEventListener("click", (e) => {
+        const btn = e.target.closest("button");
+        if (!btn) return;
 
-  // Save profile
-  document
-    .querySelector("#edit-profile-modal .btn.btn-primary")
-    ?.addEventListener("click", saveProfileChanges);
+        if (btn.id === "create-post-submit") {
+            handleCreatePost();
+        } else if (btn.classList.contains("class-apply-btn")) {
+            handleApplyClass(btn.dataset.postId);
+        } else if (btn.classList.contains("parent-accept-btn")) {
+            handleParentDecision(btn.dataset.appId, true);
+        } else if (btn.classList.contains("parent-reject-btn")) {
+            handleParentDecision(btn.dataset.appId, false);
+        } else if (btn.classList.contains("open-payment-btn")) {
+            openPaymentForApp(btn.dataset.appId);
+        } else if (btn.id === "edit-profile-btn") {
+            openEditProfileModal();
+        }
+    });
 
-  // ---------------- GLOBAL CLICK DELEGATION ----------------
-  document.addEventListener("click", (e) => {
-    const btn = e.target.closest("button");
-    if (!btn) return;
+}); // <-- đóng event DOMContentLoaded
 
-    if (btn.id === "create-post-submit") {
-      handleCreatePost();
-    } else if (btn.classList.contains("class-apply-btn")) {
-      handleApplyClass(btn.dataset.postId);
-    } else if (btn.classList.contains("parent-accept-btn")) {
-      handleParentDecision(btn.dataset.appId, true);
-    } else if (btn.classList.contains("parent-reject-btn")) {
-      handleParentDecision(btn.dataset.appId, false);
-    } else if (btn.classList.contains("open-payment-btn")) {
-      openPaymentForApp(btn.dataset.appId);
-    } else if (btn.id === "edit-profile-btn") {
-      openEditProfileModal();
-    }
-  });
-});
