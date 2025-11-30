@@ -817,65 +817,63 @@ document.addEventListener("DOMContentLoaded", () => {
     });
   });
 
-  // Click outside to close modal
-  document.querySelectorAll(".modal-backdrop").forEach((backdrop) => {
-    backdrop.addEventListener("click", (e) => {
-      if (e.target === backdrop) hideModal(backdrop.id);
+    // Click outside to close modal
+    document.querySelectorAll(".modal-backdrop").forEach((backdrop) => {
+        backdrop.addEventListener("click", (e) => {
+            if (e.target === backdrop) hideModal(backdrop.id);
+        });
     });
-  });
 
-  // Toggle password
-  document.querySelectorAll(".toggle-password").forEach((btn) => {
-    btn.addEventListener("click", () => {
-      const wrapper = btn.closest(".password-wrapper");
-      const input = wrapper.querySelector(".password-input");
-      input.type = input.type === "password" ? "text" : "password";
+    // Toggle password
+    document.querySelectorAll(".toggle-password").forEach((btn) => {
+        btn.addEventListener("click", () => {
+            const wrapper = btn.closest(".password-wrapper");
+            const input = wrapper.querySelector(".password-input");
+            input.type = input.type === "password" ? "text" : "password";
+        });
     });
-  });
 
-  // ============================
-  // LOGIN TABS FIXED (PHẦN EM BỊ LỖI)
-  // ============================
-  const loginTabs = document.querySelectorAll(".modal-tab");
-  const loginStudentForm = document.getElementById("login-student-form");
-  const loginTutorForm = document.getElementById("login-tutor-form");
+    // =============== LOGIN TABS ===============
+    const loginTabs = document.querySelectorAll(".modal-tab");
+    const loginStudentForm = document.getElementById("login-student-form");
+    const loginTutorForm = document.getElementById("login-tutor-form");
 
-  loginTabs.forEach((tab) => {
-    tab.addEventListener("click", () => {
-      loginTabs.forEach((t) => t.classList.remove("active"));
-      tab.classList.add("active");
+    loginTabs.forEach((tab) => {
+        tab.addEventListener("click", () => {
+            loginTabs.forEach((t) => t.classList.remove("active"));
+            tab.classList.add("active");
 
-      const target = tab.dataset.loginTarget;
+            const target = tab.dataset.loginTarget;
 
-      if (target === "student") {
-        loginStudentForm.classList.remove("hidden");
-        loginTutorForm.classList.add("hidden");
-      } else {
-        loginStudentForm.classList.add("hidden");
-        loginTutorForm.classList.remove("hidden");
-      }
+            if (target === "student") {
+                loginStudentForm.classList.remove("hidden");
+                loginTutorForm.classList.add("hidden");
+            } else {
+                loginStudentForm.classList.add("hidden");
+                loginTutorForm.classList.remove("hidden");
+            }
+        });
     });
-  });
 
-  // Submit login
-  document
-    .getElementById("login-student-submit")
-    ?.addEventListener("click", () => handleLogin("student"));
+    // Login submit
+    document
+        .getElementById("login-student-submit")
+        ?.addEventListener("click", () => handleLogin("student"));
 
-  document
-    .getElementById("login-tutor-submit")
-    ?.addEventListener("click", () => handleLogin("tutor"));
+    document
+        .getElementById("login-tutor-submit")
+        ?.addEventListener("click", () => handleLogin("tutor"));
 
-  // Register
-  document
-    .getElementById("register-submit")
-    ?.addEventListener("click", handleRegister);
+    // Register submit
+    document
+        .getElementById("register-submit")
+        ?.addEventListener("click", handleRegister);
 
-  // Logout
-  document.getElementById("logout-btn")?.addEventListener("click", () => {
-    handleLogout();
-    alert("Đã đăng xuất.");
-  });
+    // Logout
+    document.getElementById("logout-btn")?.addEventListener("click", () => {
+        handleLogout();
+        alert("Đã đăng xuất.");
+    });
 
     // ----------------- GLOBAL CLICK (DELEGATION) -----------------
     document.addEventListener("click", (e) => {
@@ -897,5 +895,6 @@ document.addEventListener("DOMContentLoaded", () => {
         }
     });
 
-}); // <-- đóng event DOMContentLoaded
+    // ✅ Cái này là đúng: ĐÓNG DOMContentLoaded
+});
 
