@@ -2,10 +2,22 @@
 <html lang="vi">
 <head>
   <meta charset="UTF-8" />
-  <title>EduMentor Demo</title>
+  <title>EduMentor – Demo</title>
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <style>
-    /* ========== RESET ========== */
+    :root {
+      --primary: #0059b3;
+      --primary-dark: #003b80;
+      --accent: #ffc857;
+      --bg: #f5f7fb;
+      --text: #123047;
+      --muted: #7a8aa8;
+      --card: #ffffff;
+      --danger: #ff4d4f;
+      --success: #22a06b;
+      --border: #dde3f0;
+    }
+
     * {
       box-sizing: border-box;
       margin: 0;
@@ -13,183 +25,139 @@
       font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI",
         sans-serif;
     }
+
     body {
-      background: #f5f5f7;
-      color: #333;
+      background: var(--bg);
+      color: var(--text);
+      min-height: 100vh;
     }
+
     a {
       text-decoration: none;
       color: inherit;
     }
+
     button {
-      cursor: pointer;
       border: none;
-      outline: none;
+      cursor: pointer;
       font: inherit;
     }
 
-    /* ========== COLORS (BLUE THEME) ========== */
-    :root {
-      --primary: #0a4a7a;        /* xanh đậm */
-      --primary-dark: #00325a;   /* xanh navy */
-      --primary-light: #ddefff;  /* xanh nhạt */
-      --accent: #1f77b3;         /* xanh trung bình */
-      --gray-light: #f8f8fa;
-      --gray-border: #e1e1e8;
-      --text-main: #172b4d;
-      --status-green-bg: #e6ffed;
-      --status-green-text: #218639;
-      --status-red-bg: #ffe6e6;
-      --status-red-text: #cc1f1a;
-      --status-wait-bg: #fff7e6;
-      --status-wait-text: #b76a00;
+    .hidden {
+      display: none !important;
     }
 
-    .container {
-      max-width: 1100px;
-      margin: 0 auto;
-      padding: 0 16px;
-    }
+    /* ===== HEADER ===== */
 
-    /* ========== NAVBAR ========== */
-    .navbar {
-      background: #ffffff;
-      box-shadow: 0 2px 8px rgba(15, 35, 52, 0.08);
-      padding: 8px 0;
+    header {
       position: sticky;
       top: 0;
       z-index: 20;
+      background: #ffffffcc;
+      backdrop-filter: blur(10px);
+      border-bottom: 1px solid #e1e6f2;
     }
-    .navbar-inner {
+
+    .top-bar {
+      font-size: 12px;
+      color: var(--muted);
+      padding: 4px 32px;
+      text-align: right;
+    }
+
+    .navbar {
       display: flex;
       align-items: center;
       justify-content: space-between;
-      gap: 12px;
+      padding: 10px 32px;
     }
-    .nav-left {
+
+    .logo {
       display: flex;
       align-items: center;
       gap: 10px;
-      min-width: 0;
+      font-weight: 800;
+      font-size: 22px;
+      color: var(--primary-dark);
     }
 
-    /* LOGO: mô phỏng logo EduMentor xanh */
-    .logo-wrapper {
+    .logo-icon {
+      width: 38px;
+      height: 38px;
+      border-radius: 50%;
+      background: radial-gradient(circle at 30% 30%, #fff 0, #fff 25%, #0da6ff 55%, #003b80 100%);
       display: flex;
       align-items: center;
-      gap: 8px;
-    }
-    .logo-circle {
-      width: 34px;
-      height: 34px;
-      border-radius: 50%;
-      background: radial-gradient(circle at 30% 30%, #ffffff 5%, #1f77b3 40%, #0a4a7a 70%);
-      position: relative;
-      overflow: visible;
-      box-shadow: 0 2px 6px rgba(0, 0, 0, 0.15);
-      flex-shrink: 0;
-    }
-    /* vòng tròn trong */
-    .logo-circle::before {
-      content: "";
-      position: absolute;
-      inset: 8px;
-      border-radius: 50%;
-      border: 3px solid #ffffff;
-    }
-    /* mũ tốt nghiệp */
-    .logo-circle::after {
-      content: "";
-      position: absolute;
-      width: 22px;
-      height: 14px;
-      background: #0a4a7a;
-      top: -8px;
-      left: 50%;
-      transform: translateX(-55%) skewX(-8deg);
-      border-radius: 3px 3px 1px 1px;
-      box-shadow: 0 1px 0 rgba(0, 0, 0, 0.18);
-    }
-    .logo-text {
-      font-weight: 800;
-      letter-spacing: 0.03em;
-      color: #0a4a7a;
-      font-size: 20px;
-      white-space: nowrap;
+      justify-content: center;
+      color: #ffffff;
+      font-size: 18px;
+      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.15);
     }
 
-    .nav-pages {
-      margin-left: 24px;
+    nav {
       display: flex;
-      gap: 12px;
-      font-size: 13px;
-      flex-wrap: wrap;
+      gap: 18px;
+      align-items: center;
+      font-size: 14px;
     }
-    .nav-pages button {
-      background: transparent;
-      padding: 6px 10px;
+
+    nav button {
+      background: none;
+      padding: 6px 12px;
       border-radius: 999px;
-      border: 1px solid transparent;
-      color: #4a5568;
-      white-space: nowrap;
+      color: var(--muted);
+      transition: 0.2s;
     }
-    .nav-pages button.active {
-      border-color: var(--accent);
-      color: var(--accent);
-      background: #edf6ff;
+
+    nav button.active,
+    nav button:hover {
+      color: var(--primary-dark);
+      background: #e7f1ff;
     }
 
     .nav-right {
       display: flex;
-      flex-direction: column;
-      align-items: flex-end;
-      gap: 4px;
-    }
-    .nav-note {
-      font-size: 11px;
-      color: #4a5568;
-      max-width: 260px;
-      text-align: right;
-      line-height: 1.3;
-    }
-    .nav-right-bottom {
-      display: flex;
       align-items: center;
-      gap: 8px;
-      flex-wrap: wrap;
-      justify-content: flex-end;
+      gap: 12px;
+      font-size: 14px;
     }
 
     .btn {
-      padding: 8px 18px;
-      border-radius: 20px;
+      padding: 7px 16px;
+      border-radius: 999px;
       font-weight: 600;
-      font-size: 14px;
-      transition: 0.2s all;
       display: inline-flex;
       align-items: center;
       gap: 6px;
+      transition: 0.18s all;
+      border: 1px solid transparent;
+      background: #eef2fb;
+      color: var(--primary-dark);
     }
-    .btn-outline {
-      border: 1px solid var(--accent);
-      color: var(--accent);
-      background: transparent;
-    }
-    .btn-outline:hover {
-      background: #edf6ff;
-    }
+
     .btn-primary {
-      background: var(--accent);
-      color: #fff;
+      background: var(--primary);
+      color: white;
     }
+
     .btn-primary:hover {
       background: var(--primary-dark);
+      transform: translateY(-1px);
+      box-shadow: 0 4px 10px rgba(0, 89, 179, 0.35);
     }
-    .btn-icon {
-      font-size: 16px;
+
+    .btn-outline {
+      background: #ffffff;
+      border-color: var(--primary);
+      color: var(--primary-dark);
     }
-    .btn-xs {
-      padding: 4px 10px;
+
+    .btn-outline:hover {
+      background: #e7f1ff;
+    }
+
+    .btn-small {
+      padding: 5px 10px;
       font-size: 12px;
       border-radius: 999px;
     }
@@ -197,2587 +165,2063 @@
     .user-pill {
       padding: 6px 12px;
       border-radius: 999px;
-      background: #edf6ff;
-      color: var(--primary);
+      background: #f0f4ff;
       font-size: 13px;
-      font-weight: 600;
-    }
-
-    section {
-      padding: 32px 0 40px;
-    }
-    .section-title {
-      text-align: center;
-      font-size: 28px;
-      color: var(--primary);
-      font-weight: 800;
-      margin-bottom: 10px;
-    }
-    .section-subtitle {
-      text-align: center;
-      max-width: 700px;
-      margin: 0 auto 26px;
-      line-height: 1.5;
-      color: #4a5568;
-    }
-
-    /* HERO */
-    .hero {
-      padding-top: 40px;
-    }
-    .hero-grid {
-      display: grid;
-      grid-template-columns: 1.2fr 1fr;
-      gap: 24px;
-      align-items: center;
-    }
-    @media (max-width: 880px) {
-      .hero-grid {
-        grid-template-columns: 1fr;
-      }
-    }
-    .hero h1 {
-      font-size: 30px;
       color: var(--primary-dark);
-      margin-bottom: 12px;
-      letter-spacing: 0.03em;
-      text-transform: none;
+      max-width: 260px;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
     }
-    .hero-text {
+
+    /* ===== LAYOUT ===== */
+
+    main {
+      padding: 24px 32px 40px;
+      max-width: 1200px;
+      margin: 0 auto;
+    }
+
+    .hero {
+      display: grid;
+      grid-template-columns: minmax(0, 1.1fr) minmax(0, 1fr);
+      gap: 32px;
+      align-items: center;
+      margin-top: 20px;
+    }
+
+    .hero-text h1 {
+      font-size: clamp(28px, 4vw, 36px);
+      margin-bottom: 12px;
+      color: var(--primary-dark);
+    }
+
+    .hero-text p {
       font-size: 14px;
-      color: #4a5568;
+      color: var(--muted);
       line-height: 1.6;
       margin-bottom: 12px;
     }
-    .hero-cta-row {
+
+    .hero-actions {
       display: flex;
-      gap: 10px;
-      margin-top: 6px;
       flex-wrap: wrap;
-    }
-    .hero-badge {
-      display: inline-flex;
-      align-items: center;
-      gap: 6px;
-      font-size: 12px;
-      background: #ffffff;
-      color: #4a5568;
-      padding: 6px 10px;
-      border-radius: 999px;
-      border: 1px solid #e2e8f0;
-      margin-top: 10px;
-    }
-    .hero-image-wrapper {
-      position: relative;
-      border-radius: 24px;
-      overflow: hidden;
-      box-shadow: 0 18px 40px rgba(15, 35, 52, 0.35);
-      background: #000;
-      min-height: 230px;
-    }
-    .hero-image {
-      width: 100%;
-      height: 100%;
-      object-fit: cover;
-      display: block;
-      filter: saturate(1.08);
-    }
-    .hero-image-tag {
-      position: absolute;
-      left: 16px;
-      bottom: 16px;
-      background: rgba(10, 74, 122, 0.9);
-      color: #fff;
-      padding: 6px 10px;
-      font-size: 12px;
-      border-radius: 999px;
-      display: inline-flex;
-      align-items: center;
-      gap: 6px;
+      gap: 10px;
+      margin-top: 8px;
     }
 
-    .cards-grid {
-      margin-top: 24px;
+    .hero-badge {
+      margin-top: 14px;
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 7px 14px;
+      border-radius: 999px;
+      background: #fff7dd;
+      font-size: 12px;
+      color: #a46a00;
+    }
+
+    .hero-card {
+      background: var(--card);
+      border-radius: 30px;
+      box-shadow: 0 14px 30px rgba(15, 40, 90, 0.15);
+      overflow: hidden;
+      position: relative;
+    }
+
+    .hero-card img {
+      width: 100%;
+      height: 280px;
+      object-fit: cover;
+      display: block;
+    }
+
+    .hero-pill-bottom {
+      position: absolute;
+      left: 18px;
+      bottom: 18px;
+      padding: 7px 12px;
+      background: rgba(0, 59, 128, 0.9);
+      color: white;
+      border-radius: 999px;
+      font-size: 12px;
+      display: inline-flex;
+      gap: 10px;
+      align-items: center;
+    }
+
+    .chip {
+      padding: 5px 9px;
+      border-radius: 999px;
+      font-size: 12px;
+      background: #e8f1ff;
+      color: var(--primary-dark);
+    }
+
+    h2.section-title {
+      margin-top: 40px;
+      margin-bottom: 18px;
+      text-align: center;
+      color: var(--primary-dark);
+      font-size: 22px;
+    }
+
+    .three-columns {
       display: grid;
-      grid-template-columns: repeat(3, minmax(0, 1fr));
-      gap: 18px;
+      grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+      gap: 16px;
+      margin-bottom: 10px;
     }
-    @media (max-width: 900px) {
-      .cards-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+
+    .info-card {
+      background: var(--card);
+      border-radius: 18px;
+      padding: 18px 18px 16px;
+      box-shadow: 0 6px 16px rgba(9, 30, 66, 0.08);
     }
-    @media (max-width: 640px) {
-      .cards-grid { grid-template-columns: 1fr; }
-    }
-    .card {
-      background: #fff;
-      border-radius: 16px;
-      padding: 20px 22px;
-      box-shadow: 0 4px 14px rgba(15, 35, 52, 0.08);
-      border: 1px solid #e2ecff;
-    }
-    .card-icon {
-      width: 44px;
-      height: 44px;
+
+    .info-icon {
+      width: 34px;
+      height: 34px;
       border-radius: 50%;
-      background: var(--primary-light);
+      background: #e7f1ff;
       display: flex;
       align-items: center;
       justify-content: center;
-      font-size: 20px;
-      color: var(--primary);
       margin-bottom: 10px;
-    }
-    .card-title {
-      font-weight: 700;
-      margin-bottom: 4px;
-      color: var(--text-main);
-    }
-    .card-text {
-      font-size: 14px;
-      color: #4a5568;
-      line-height: 1.5;
-    }
-
-    .how-section {
-      margin-top: 32px;
-    }
-    .how-cards {
-      margin-top: 18px;
-      display: grid;
-      grid-template-columns: repeat(3, minmax(0, 1fr));
-      gap: 18px;
-    }
-    @media (max-width: 900px) {
-      .how-cards { grid-template-columns: repeat(2, minmax(0, 1fr)); }
-    }
-    @media (max-width: 640px) {
-      .how-cards { grid-template-columns: 1fr; }
-    }
-
-    /* FOOTER */
-    footer {
-      background: #ffffff;
-      padding: 26px 0 14px;
-      border-top: 1px solid #e2e8f0;
-    }
-    .footer-top {
-      display: grid;
-      grid-template-columns: 2fr 1.5fr 1.5fr;
-      gap: 20px;
-      font-size: 14px;
-      margin-bottom: 16px;
-      color: #4a5568;
-    }
-    @media (max-width: 800px) {
-      .footer-top { grid-template-columns: 1fr; }
-    }
-    .footer-title {
-      font-weight: 700;
-      margin-bottom: 6px;
-      color: var(--primary);
-      text-transform: uppercase;
-      font-size: 13px;
-    }
-    .footer-links a {
-      display: block;
-      margin-bottom: 4px;
-      font-size: 14px;
-      color: #4a5568;
-    }
-    .footer-bottom {
-      text-align: center;
-      font-size: 12px;
-      color: #718096;
-      border-top: 1px solid #e2e8f0;
-      padding-top: 10px;
-    }
-    .social-row {
-      display: flex;
-      gap: 8px;
-      margin-top: 8px;
       font-size: 18px;
     }
 
-    /* GENERAL */
-    .hidden { display: none !important; }
+    .info-card h3 {
+      font-size: 15px;
+      margin-bottom: 4px;
+      color: var(--primary-dark);
+    }
+
+    .info-card p {
+      font-size: 13px;
+      color: var(--muted);
+      line-height: 1.6;
+    }
+
+    .section-subtitle {
+      text-align: center;
+      font-size: 13px;
+      color: var(--muted);
+      margin-bottom: 18px;
+    }
+
+    .tag-row {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 8px;
+      margin-bottom: 10px;
+    }
+
+    .section-label {
+      font-size: 12px;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      color: var(--muted);
+      text-align: center;
+      margin-top: 28px;
+      margin-bottom: 6px;
+    }
+
+    /* ===== CLASSES & PROFILE ===== */
+
+    .page-section {
+      margin-top: 32px;
+    }
 
     .page-title {
+      font-size: 20px;
+      margin-bottom: 12px;
+      color: var(--primary-dark);
       text-align: center;
-      color: var(--primary);
-      font-size: 24px;
-      font-weight: 800;
-      margin-bottom: 20px;
     }
 
-    .muted { color: #777; font-size: 14px; text-align: center; }
+    .section-lead {
+      text-align: center;
+      font-size: 13px;
+      color: var(--muted);
+      margin-bottom: 18px;
+    }
 
-    /* CLASS CARDS */
-    .class-card {
-      background: #fff;
-      border-radius: 16px;
-      padding: 18px 22px;
-      margin-bottom: 16px;
+    .class-list {
       display: flex;
       flex-direction: column;
-      box-shadow: 0 4px 14px rgba(15, 35, 52, 0.08);
-      gap: 12px;
-      border: 1px solid #e2ecff;
+      gap: 14px;
     }
+
+    .class-card {
+      background: var(--card);
+      border-radius: 16px;
+      padding: 14px 18px;
+      box-shadow: 0 5px 14px rgba(15, 40, 90, 0.08);
+    }
+
     .class-top-row {
-      display: flex;
-      align-items: flex-start;
-      gap: 12px;
-    }
-    .avatar-circle {
-      width: 46px;
-      height: 46px;
-      border-radius: 50%;
-      background: #a6c9e2;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-size: 20px;
-      color: #ffffff;
-      flex-shrink: 0;
-      text-transform: uppercase;
-    }
-    .class-main { flex: 1; }
-    .class-name {
-      font-weight: 700;
-      margin-bottom: 2px;
-      color: var(--text-main);
-    }
-    .class-subtitle {
-      font-size: 14px;
-      color: #4a5568;
-    }
-    .class-info-grid {
-      display: grid;
-      grid-template-columns: repeat(3, minmax(0, 1fr));
-      gap: 8px 16px;
-      margin-top: 10px;
-      font-size: 13px;
-      color: #4a5568;
-    }
-    @media (max-width: 800px) {
-      .class-info-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
-    }
-    @media (max-width: 600px) {
-      .class-info-grid { grid-template-columns: 1fr; }
-    }
-    .info-item {
-      display: flex;
-      align-items: center;
-      gap: 6px;
-    }
-    .info-icon { font-size: 14px; }
-    .class-bottom-row {
       display: flex;
       justify-content: space-between;
       align-items: center;
-      margin-top: 8px;
-      font-size: 14px;
-      gap: 8px;
-      flex-wrap: wrap;
+      margin-bottom: 6px;
     }
-    .phone-link {
+
+    .class-title {
       font-weight: 600;
-      color: var(--accent);
+      font-size: 15px;
     }
-    .class-actions {
+
+    .badge-subject {
+      font-size: 12px;
+      padding: 4px 9px;
+      border-radius: 999px;
+      background: #e7f1ff;
+      color: var(--primary-dark);
+    }
+
+    .class-meta {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+      gap: 4px 12px;
+      font-size: 12px;
+      color: var(--muted);
+      margin-bottom: 8px;
+      margin-top: 4px;
+    }
+
+    .class-meta span::before {
+      content: "• ";
+      color: #c1c7d8;
+    }
+
+    .class-footer {
       display: flex;
-      gap: 8px;
+      justify-content: space-between;
       align-items: center;
+      margin-top: 4px;
+      gap: 8px;
       flex-wrap: wrap;
-      justify-content: flex-end;
     }
 
     .status-pill {
-      padding: 5px 12px;
+      padding: 5px 10px;
       border-radius: 999px;
       font-size: 12px;
-      font-weight: 600;
+      background: #f1f3fb;
+      color: var(--muted);
     }
-    .status-wait {
-      background: var(--status-wait-bg);
-      color: var(--status-wait-text);
+
+    .status-pending {
+      background: #fff7dd;
+      color: #a46a00;
     }
+
     .status-accepted {
-      background: var(--status-green-bg);
-      color: var(--status-green-text);
+      background: #e7f9f1;
+      color: #107c41;
     }
+
     .status-rejected {
-      background: var(--status-red-bg);
-      color: var(--status-red-text);
+      background: #ffe6e6;
+      color: #b3261e;
     }
+
     .status-connected {
-      background: var(--status-green-bg);
-      color: var(--status-green-text);
+      background: #dff5ff;
+      color: #0059b3;
     }
 
-    /* PROFILE */
-    .profile-card {
-      background: #fff;
-      border-radius: 16px;
-      padding: 20px 24px;
-      margin-bottom: 22px;
-      display: flex;
-      gap: 24px;
-      align-items: flex-start;
-      box-shadow: 0 4px 14px rgba(15, 35, 52, 0.08);
-      border: 1px solid #e2ecff;
+    .muted {
+      color: var(--muted);
+      font-size: 12px;
     }
-    .profile-avatar {
-      width: 90px;
-      height: 90px;
-      border-radius: 999px;
-      background: linear-gradient(135deg, #0a4a7a, #1f77b3);
-      display: flex;
+
+    .avatar-circle {
+      width: 34px;
+      height: 34px;
+      border-radius: 50%;
+      background: #0f7bdd;
+      display: inline-flex;
       align-items: center;
       justify-content: center;
-      color: #fff;
-      font-size: 40px;
+      color: white;
+      font-weight: 700;
+      margin-right: 8px;
       flex-shrink: 0;
-      text-transform: uppercase;
-      overflow: hidden;
-    }
-    .profile-avatar img {
-      width: 100%;
-      height: 100%;
-      object-fit: cover;
-      display: block;
-    }
-    .profile-main {
-      flex: 1;
-      display: grid;
-      grid-template-columns: repeat(2, minmax(0, 1fr));
-      column-gap: 30px;
-      row-gap: 6px;
-      font-size: 14px;
-    }
-    .profile-main strong { margin-right: 4px; }
-    .profile-header {
-      display: flex;
-      justify-content: space-between;
-      margin-bottom: 10px;
-      align-items: center;
-    }
-    .profile-name {
-      font-weight: 800;
-      font-size: 18px;
-      color: var(--primary);
-    }
-    .rating-badge {
-      padding: 6px 12px;
-      background: #edf6ff;
-      border-radius: 999px;
-      color: var(--primary);
-      font-size: 13px;
-      font-weight: 600;
-      margin-top: 8px;
-      display: inline-block;
-    }
-    .rating-list {
-      margin-top: 10px;
-      font-size: 13px;
-      color: #4a5568;
-    }
-    .rating-item {
-      padding: 6px 10px;
-      border-radius: 8px;
-      background: #f1f5ff;
-      margin-bottom: 6px;
     }
 
-    /* MODAL */
-    .modal-backdrop {
-      position: fixed;
-      inset: 0;
-      background: rgba(0, 0, 0, 0.35);
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      z-index: 30;
-      backdrop-filter: blur(3px);
-      padding: 16px;
-    }
-    .modal {
-      background: #fff;
-      border-radius: 16px;
-      max-width: 420px;
-      width: 100%;
-      padding: 24px 24px 22px;
-      box-shadow: 0 8px 30px rgba(15, 35, 52, 0.4);
-      position: relative;
-      border: 1px solid #e2ecff;
-    }
-    .modal-title {
-      text-align: center;
-      font-weight: 800;
-      font-size: 20px;
-      margin-bottom: 18px;
-      color: var(--primary);
-    }
-    .modal-close {
-      position: absolute;
-      top: 12px;
-      right: 16px;
-      background: transparent;
-      font-size: 18px;
-      color: #a0aec0;
-    }
-    .modal-tabs {
-      display: grid;
-      grid-template-columns: repeat(2, 1fr);
-      gap: 8px;
-      margin-bottom: 16px;
-    }
-    .modal-tab {
-      padding: 10px;
-      border-radius: 30px;
-      border: 1px solid var(--accent);
-      background: #fff;
-      color: var(--accent);
-      font-size: 14px;
-      text-align: center;
-    }
-    .modal-tab.active {
-      background: var(--accent);
-      color: #fff;
-    }
-
-    .form-group {
-      margin-bottom: 12px;
-    }
-    label {
-      display: block;
-      font-size: 13px;
-      margin-bottom: 4px;
-      color: #4a5568;
-    }
-    .input {
-      width: 100%;
-      border-radius: 24px;
-      border: 1px solid #cbd5e0;
-      padding: 8px 14px;
-      font-size: 14px;
-      outline: none;
-      transition: border-color 0.15s, background-color 0.15s;
-      background: #f7fafc;
-    }
-    .input:focus {
-      border-color: var(--accent);
-      background: #ffffff;
-    }
-    .password-wrapper { position: relative; }
-    .toggle-password {
-      position: absolute;
-      right: 14px;
-      top: 50%;
-      transform: translateY(-50%);
-      font-size: 16px;
-      color: #a0aec0;
-      background: transparent;
-    }
-    .select {
-      width: 100%;
-      border-radius: 24px;
-      border: 1px solid #cbd5e0;
-      padding: 8px 14px;
-      font-size: 14px;
-      background: #f7fafc;
-      outline: none;
-    }
-    .modal-footer-text {
-      text-align: center;
-      font-size: 13px;
-      margin-top: 10px;
-    }
-    .modal-footer-text a {
-      color: var(--accent);
-      font-weight: 600;
-    }
-
-    /* PARENT POSTS: applicant list */
-    .applicants-toggle {
-      font-size: 13px;
-      color: var(--accent);
-      font-weight: 600;
-      cursor: pointer;
-    }
-    .applicants-list {
-      margin-top: 10px;
-      border-top: 1px solid #e2e8f0;
-      padding-top: 10px;
-    }
     .applicant-row {
       display: flex;
       align-items: center;
       justify-content: space-between;
-      padding: 8px 10px;
-      border-radius: 8px;
-      background: #f1f5ff;
-      margin-bottom: 6px;
-      font-size: 14px;
-    }
-    .applicant-left {
-      display: flex;
-      align-items: center;
+      padding: 8px 0;
+      border-bottom: 1px solid #edf0fa;
       gap: 10px;
     }
-    .applicant-avatar {
-      width: 26px;
-      height: 26px;
-      border-radius: 999px;
+
+    .applicant-row:last-child {
+      border-bottom: none;
+    }
+
+    .applicant-main {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      flex: 1;
+      min-width: 0;
+    }
+
+    .applicant-main div {
+      font-size: 13px;
+    }
+
+    .rating-stars {
+      color: #f5a623;
+      font-size: 13px;
+    }
+
+    /* ===== PROFILE ===== */
+
+    .profile-layout {
+      display: grid;
+      grid-template-columns: minmax(0, 1.3fr) minmax(0, 1fr);
+      gap: 18px;
+      align-items: flex-start;
+    }
+
+    .profile-card {
+      background: var(--card);
+      border-radius: 18px;
+      padding: 18px;
+      box-shadow: 0 6px 16px rgba(9, 30, 66, 0.08);
+    }
+
+    .profile-header {
+      display: flex;
+      gap: 16px;
+      align-items: center;
+      margin-bottom: 10px;
+    }
+
+    .profile-avatar {
+      width: 70px;
+      height: 70px;
+      border-radius: 50%;
+      background: #e7f1ff;
       display: flex;
       align-items: center;
       justify-content: center;
-      background: #a6c9e2;
-      color: #fff;
-      font-size: 14px;
-      text-transform: uppercase;
-    }
-    .applicant-accepted {
-      background: #e6ffed;
-      color: var(--status-green-text);
+      font-size: 32px;
+      color: var(--primary-dark);
     }
 
-    /* CREATE POST FORM */
-    .card-form {
-      max-width: 700px;
-      margin: 0 auto;
-      background: #fff;
-      border-radius: 16px;
-      padding: 22px 24px 24px;
-      box-shadow: 0 4px 14px rgba(15, 35, 52, 0.08);
-      border: 1px solid #e2ecff;
-    }
-    .form-grid-2 {
-      display: grid;
-      grid-template-columns: repeat(2, minmax(0, 1fr));
-      gap: 10px 14px;
-    }
-    @media (max-width: 720px) {
-      .form-grid-2 { grid-template-columns: 1fr; }
+    .profile-header h3 {
+      font-size: 18px;
+      margin-bottom: 2px;
     }
 
-    /* PAYMENT MODAL */
-    .qr-options {
+    .profile-header p {
+      font-size: 13px;
+      color: var(--muted);
+    }
+
+    .profile-grid {
       display: grid;
-      grid-template-columns: repeat(2, minmax(0, 1fr));
-      gap: 12px;
-      margin-bottom: 14px;
-    }
-    @media (max-width: 520px) {
-      .qr-options { grid-template-columns: 1fr; }
-    }
-    .qr-card {
-      border-radius: 12px;
-      border: 1px solid #e2e8f0;
-      padding: 10px 12px;
-      background: #f7fafc;
+      grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+      gap: 8px 18px;
+      margin-top: 10px;
       font-size: 13px;
     }
-    .qr-title {
-      font-weight: 700;
-      color: var(--primary);
-      margin-bottom: 4px;
-      font-size: 14px;
+
+    .profile-grid span {
+      color: var(--muted);
     }
-    .qr-box {
-      margin-top: 8px;
+
+    .achievements {
+      margin-top: 14px;
+    }
+
+    .achievements h4 {
+      font-size: 14px;
+      margin-bottom: 6px;
+      color: var(--primary-dark);
+    }
+
+    .achievements ul {
+      padding-left: 18px;
+      font-size: 13px;
+      color: var(--muted);
+      margin-bottom: 8px;
+    }
+
+    .achievements textarea {
       width: 100%;
-      aspect-ratio: 1 / 1;
-      border-radius: 8px;
-      border: 2px dashed #cbd5e0;
+      min-height: 60px;
+      padding: 8px 10px;
+      border-radius: 10px;
+      border: 1px solid var(--border);
+      font-size: 13px;
+      resize: vertical;
+      margin-bottom: 6px;
+    }
+
+    .small {
+      font-size: 11px;
+    }
+
+    /* ===== FORMS & MODALS ===== */
+
+    input,
+    select {
+      width: 100%;
+      padding: 8px 10px;
+      font-size: 13px;
+      border-radius: 999px;
+      border: 1px solid var(--border);
+      outline: none;
+    }
+
+    input:focus,
+    select:focus,
+    textarea:focus {
+      border-color: var(--primary);
+      box-shadow: 0 0 0 1px #cfe3ff;
+    }
+
+    label {
+      font-size: 13px;
+      margin-bottom: 4px;
+      display: block;
+      color: var(--text);
+    }
+
+    .form-row {
+      margin-bottom: 10px;
+    }
+
+    .two-cols {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 10px;
+    }
+
+    .modal-backdrop {
+      position: fixed;
+      inset: 0;
+      background: rgba(10, 20, 40, 0.55);
       display: flex;
       align-items: center;
       justify-content: center;
-      font-size: 13px;
-      color: #4a5568;
-      background: repeating-linear-gradient(
-        45deg,
-        #f9fafb,
-        #f9fafb 6px,
-        #ddefff 6px,
-        #ddefff 12px
-      );
+      opacity: 0;
+      visibility: hidden;
+      transition: 0.18s ease;
+      z-index: 50;
     }
-    .qr-note {
+
+    .modal-backdrop.show {
+      opacity: 1;
+      visibility: visible;
+    }
+
+    .modal {
+      background: white;
+      border-radius: 18px;
+      padding: 18px 20px 16px;
+      width: min(420px, 92vw);
+      box-shadow: 0 18px 40px rgba(5, 18, 40, 0.35);
+      position: relative;
+    }
+
+    .modal-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 8px;
+    }
+
+    .modal-title {
+      font-size: 18px;
+      font-weight: 700;
+      color: var(--primary-dark);
+    }
+
+    .modal-close {
+      background: none;
+      font-size: 18px;
+      padding: 2px 4px;
+      color: var(--muted);
+    }
+
+    .modal-tabs {
+      display: flex;
+      gap: 4px;
+      margin: 10px 0 14px;
+      background: #f3f5fb;
+      padding: 3px;
+      border-radius: 999px;
+      font-size: 13px;
+    }
+
+    .modal-tab {
+      flex: 1;
+      text-align: center;
+      padding: 6px 0;
+      border-radius: 999px;
+      cursor: pointer;
+      color: var(--muted);
+    }
+
+    .modal-tab.active {
+      background: white;
+      color: var(--primary-dark);
+      font-weight: 600;
+      box-shadow: 0 2px 6px rgba(9, 30, 66, 0.16);
+    }
+
+    .modal-footer {
+      margin-top: 10px;
       font-size: 12px;
-      color: #718096;
-      margin-top: 4px;
+      color: var(--muted);
+      text-align: center;
+    }
+
+    .link {
+      color: var(--primary);
+      cursor: pointer;
+      font-weight: 600;
+    }
+
+    .qr-box {
+      margin: 10px 0;
+      border-radius: 12px;
+      padding: 14px;
+      background: #f3f5fb;
+      text-align: center;
+      font-size: 13px;
+    }
+
+    .qr-placeholder {
+      margin: 0 auto 8px;
+      width: 150px;
+      height: 150px;
+      background-image: repeating-linear-gradient(
+          45deg,
+          #0b4ea2 0,
+          #0b4ea2 5px,
+          #ffffff 5px,
+          #ffffff 10px
+        ),
+        repeating-linear-gradient(
+          -45deg,
+          #0b4ea2 0,
+          #0b4ea2 5px,
+          #ffffff 5px,
+          #ffffff 10px
+        );
+      background-blend-mode: multiply;
+      border-radius: 12px;
+    }
+
+    .qr-text {
+      margin-bottom: 4px;
     }
 
     /* QUIZ */
-    .quiz-card {
-      max-width: 800px;
-      margin: 0 auto;
-      background: #fff;
-      border-radius: 16px;
-      padding: 20px 24px 24px;
-      box-shadow: 0 4px 14px rgba(15, 35, 52, 0.08);
-      border: 1px solid #e2ecff;
-      font-size: 14px;
-      color: #2d3748;
-    }
-    .quiz-status {
+
+    .quiz-list {
+      margin-top: 10px;
       font-size: 13px;
-      margin-bottom: 6px;
+      max-height: 260px;
+      overflow-y: auto;
+      padding-right: 4px;
     }
-    .quiz-note {
-      font-size: 13px;
-      margin-bottom: 12px;
-      color: #4a5568;
-    }
+
     .quiz-question {
       margin-bottom: 10px;
-      padding: 10px 12px;
-      border-radius: 10px;
-      background: #f7fafc;
     }
-    .quiz-question-title {
-      margin-bottom: 6px;
-      font-weight: 600;
+
+    .quiz-question strong {
+      display: block;
+      margin-bottom: 4px;
     }
+
     .quiz-options label {
       display: block;
-      margin-bottom: 3px;
+      margin-bottom: 2px;
       cursor: pointer;
+    }
+
+    .badge {
+      display: inline-block;
+      padding: 3px 7px;
+      border-radius: 999px;
+      font-size: 11px;
+      background: #e7f1ff;
+      color: var(--primary-dark);
+    }
+
+    /* FOOTER */
+
+    footer {
+      border-top: 1px solid #e1e6f2;
+      padding: 18px 32px 10px;
+      margin-top: 32px;
+      background: #ffffff;
+      font-size: 12px;
+      color: var(--muted);
+    }
+
+    .footer-grid {
+      max-width: 1200px;
+      margin: 0 auto;
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 14px;
+    }
+
+    .footer-title {
+      font-weight: 700;
+      color: var(--primary-dark);
+      margin-bottom: 6px;
+      font-size: 13px;
+    }
+
+    .footer-bottom {
+      max-width: 1200px;
+      margin: 10px auto 0;
+      text-align: center;
+      font-size: 11px;
+    }
+
+    @media (max-width: 800px) {
+      header {
+        position: static;
+      }
+      main {
+        padding: 18px 16px 30px;
+      }
+      .navbar {
+        flex-wrap: wrap;
+        gap: 10px;
+      }
+      nav {
+        order: 3;
+        width: 100%;
+        justify-content: center;
+        flex-wrap: wrap;
+      }
+      .hero {
+        grid-template-columns: 1fr;
+      }
+      .profile-layout {
+        grid-template-columns: 1fr;
+      }
     }
   </style>
 </head>
 <body>
-  <!-- NAVBAR -->
-  <header class="navbar">
-    <div class="container navbar-inner">
-      <div class="nav-left">
-        <div class="logo-wrapper">
-          <div class="logo-circle"></div>
-          <div class="logo-text">EduMentor</div>
-        </div>
-
-        <div class="nav-pages">
-          <button class="nav-page-btn active" data-target="home-section">Trang chủ</button>
-          <button class="nav-page-btn" data-target="classes-section">Danh sách lớp</button>
-          <button class="nav-page-btn" data-target="tutor-section">Gia sư</button>
-          <button class="nav-page-btn" data-target="parent-posts-section">Bài đăng của tôi</button>
-          <button class="nav-page-btn" data-target="create-post-section">Đăng bài tìm gia sư</button>
-        </div>
+  <header>
+    <div class="top-bar">
+      Trang web là sản phẩm của môn học <strong>Quản lí dự án cho kĩ sư – HK251</strong>.
+    </div>
+    <div class="navbar">
+      <div class="logo">
+        <div class="logo-icon">🎓</div>
+        <div>EduMentor</div>
       </div>
+
+      <nav>
+        <button class="nav-link active" data-section="home-section">Trang chủ</button>
+        <button class="nav-link" data-section="classes-section">Danh sách lớp</button>
+        <button class="nav-link" data-section="tutor-section">Gia sư</button>
+        <button class="nav-link" data-section="parent-posts-section">Bài đăng của tôi</button>
+        <button class="nav-link" data-section="create-post-section">Đăng bài tìm gia sư</button>
+      </nav>
+
       <div class="nav-right">
-        <div class="nav-note">
-          Trang web là sản phẩm của môn học
-          <b>Quản lí dự án cho kĩ sư – HK251</b>.
+        <div id="auth-logged-out">
+          <button class="btn btn-outline" id="open-register">📝 Đăng kí</button>
+          <button class="btn btn-primary" id="open-login">🔐 Đăng nhập</button>
         </div>
-        <div class="nav-right-bottom">
-          <div id="guest-actions">
-            <button class="btn btn-outline" id="open-register">
-              <span class="btn-icon">📝</span> Đăng kí
-            </button>
-            <button class="btn btn-primary" id="open-login">
-              <span class="btn-icon">🔐</span> Đăng nhập
-            </button>
-          </div>
-          <div id="user-actions" class="hidden">
-            <span id="current-user-label" class="user-pill"></span>
-            <button class="btn btn-outline" id="logout-btn">Đăng xuất</button>
-          </div>
+        <div id="auth-logged-in" class="hidden">
+          <span id="current-user-label" class="user-pill"></span>
+          <button class="btn btn-outline btn-small" id="logout-btn">Đăng xuất</button>
         </div>
       </div>
     </div>
   </header>
 
   <main>
-    <!-- HOME -->
-    <section id="home-section">
-      <div class="container">
-        <div class="hero">
-          <div class="hero-grid">
-            <div>
-              <h1>Gia sư tận tâm – Tiến xa vạn dặm</h1>
-              <p class="hero-text">
-                EduMentor là nền tảng kết nối gia sư và học viên uy tín, với đội ngũ gia sư chất lượng cao,
-                phương pháp giảng dạy hiện đại và hệ thống quản lý học tập thông minh. Chúng tôi cam kết
-                mang lại trải nghiệm học tập tốt nhất cho học viên.
-              </p>
-              <p class="hero-text">
-                Chỉ với vài bước đơn giản, bạn có thể tìm được gia sư phù hợp hoặc nhận lớp dạy thêm đúng chuyên môn.
-              </p>
-              <div class="hero-cta-row">
-                <button class="btn btn-primary" id="hero-go-classes">
-                  🔍 Tìm lớp ngay
-                </button>
-                <button class="btn btn-outline" id="hero-go-register">
-                  ✨ Trở thành gia sư
-                </button>
-              </div>
-              <div class="hero-badge">
-                ⭐ Hỗ trợ kết nối minh bạch – Phí nhận lớp rõ ràng cho gia sư
-              </div>
-            </div>
-            <div class="hero-image-wrapper">
-              <img
-                class="hero-image"
-                src="https://images.pexels.com/photos/4144222/pexels-photo-4144222.jpeg?auto=compress&cs=tinysrgb&w=900"
-                alt="Gia sư hỗ trợ học sinh học tập"
-              />
-              <div class="hero-image-tag">
-                👩‍🏫 Gia sư tận tâm · 👨‍🎓 Học sinh tiến bộ
-              </div>
-            </div>
-          </div>
-        </div>
-
-        <div class="why-section">
-          <h2 class="section-title">Tại sao chọn EduMentor?</h2>
-          <div class="cards-grid">
-            <div class="card">
-              <div class="card-icon">🎓</div>
-              <div class="card-title">Gia sư chất lượng</div>
-              <div class="card-text">
-                Đội ngũ gia sư được tuyển chọn kỹ lưỡng, có trình độ chuyên môn cao
-                và kinh nghiệm giảng dạy phong phú.
-              </div>
-            </div>
-            <div class="card">
-              <div class="card-icon">🕒</div>
-              <div class="card-title">Linh hoạt thời gian</div>
-              <div class="card-text">
-                Học mọi lúc, mọi nơi với lịch học linh hoạt được sắp xếp theo yêu cầu của học viên.
-              </div>
-            </div>
-            <div class="card">
-              <div class="card-icon">📈</div>
-              <div class="card-title">Hiệu quả cao</div>
-              <div class="card-text">
-                Phương pháp giảng dạy cá nhân hóa giúp học viên tiếp thu kiến thức nhanh chóng và hiệu quả.
-              </div>
-            </div>
-          </div>
-        </div>
-
-        <div class="how-section">
-          <h2 class="section-title">Cách thức hoạt động</h2>
-          <div class="how-cards">
-            <div class="card">
-              <div class="card-icon">👤</div>
-              <div class="card-title">Đăng ký tài khoản</div>
-              <div class="card-text">
-                Tạo tài khoản học viên hoặc gia sư trong vài bước đơn giản.
-              </div>
-            </div>
-            <div class="card">
-              <div class="card-icon">🔍</div>
-              <div class="card-title">Tìm kiếm phù hợp</div>
-              <div class="card-text">
-                Học viên tìm gia sư hoặc gia sư tìm lớp học phù hợp với nhu cầu.
-              </div>
-            </div>
-            <div class="card">
-              <div class="card-icon">📞</div>
-              <div class="card-title">Kết nối & Thanh toán</div>
-              <div class="card-text">
-                Phụ huynh duyệt gia sư, gia sư thanh toán phí nhận lớp để hoàn tất kết nối.
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <!-- CLASSES FOR TUTOR / GUEST -->
-    <section id="classes-section" class="hidden">
-      <div class="container">
-        <h2 class="page-title">DANH SÁCH BÀI ĐĂNG CẦN GIA SƯ</h2>
-        <div id="classes-list"></div>
-        <p class="muted">
-          Đăng nhập với vai trò <b>Gia sư</b> để bấm "Đăng kí nhận lớp" và theo dõi trạng thái.
+    <!-- ===== HOME ===== -->
+    <section class="hero page-section" id="home-section">
+      <div class="hero-text">
+        <h1>Gia sư tận tâm – Tiến xa vạn dặm</h1>
+        <p>
+          EduMentor là nền tảng kết nối gia sư và học viên uy tín, với đội ngũ gia sư chất lượng cao,
+          phương pháp giảng dạy hiện đại và hệ thống quản lý học tập thông minh. Chúng tôi cam kết mang lại
+          trải nghiệm học tập tốt nhất cho học viên.
         </p>
-      </div>
-    </section>
+        <p>
+          Chỉ với vài bước đơn giản, bạn có thể tìm được gia sư phù hợp hoặc nhận lớp dạy thêm đúng chuyên môn.
+        </p>
 
-    <!-- TUTOR PROFILE & REGISTERED CLASSES -->
-    <section id="tutor-section" class="hidden">
-      <div class="container">
-        <h2 class="page-title">THÔNG TIN GIA SƯ</h2>
-        <div id="tutor-section-content"></div>
-      </div>
-    </section>
-
-    <!-- TUTOR TEST -->
-    <section id="test-section" class="hidden">
-      <div class="container">
-        <h2 class="page-title">BÀI KIỂM TRA NĂNG LỰC GIA SƯ</h2>
-        <div id="test-section-content"></div>
-      </div>
-    </section>
-
-    <!-- PARENT POSTS -->
-    <section id="parent-posts-section" class="hidden">
-      <div class="container">
-        <h2 class="page-title">CÁC BÀI ĐĂNG CỦA PHỤ HUYNH - HỌC SINH</h2>
-        <div id="parent-posts-content"></div>
-      </div>
-    </section>
-
-    <!-- CREATE POST -->
-    <section id="create-post-section" class="hidden">
-      <div class="container">
-        <h2 class="page-title">ĐĂNG BÀI TÌM GIA SƯ</h2>
-        <div id="create-post-content">
-          <p class="muted">Vui lòng đăng nhập với vai trò <b>Phụ huynh/Học sinh</b> để đăng bài.</p>
+        <div class="hero-actions">
+          <button class="btn btn-primary" id="cta-find-class">🔍 Tìm lớp ngay</button>
+          <button class="btn btn-outline" id="cta-become-tutor">✨ Trở thành gia sư</button>
         </div>
+
+        <div class="hero-badge">
+          <span>🤝 Hỗ trợ kết nối minh bạch</span>
+          <span>💸 Phí nhận lớp rõ ràng cho gia sư (25% tháng đầu)</span>
+        </div>
+      </div>
+
+      <div class="hero-card">
+        <img
+          src="https://images.pexels.com/photos/4144222/pexels-photo-4144222.jpeg?auto=compress&cs=tinysrgb&w=1200"
+          alt="Học sinh học cùng gia sư"
+        />
+        <div class="hero-pill-bottom">
+          <span>Gia sư tận tâm</span>
+          <span class="chip">Học sinh tiến bộ</span>
+        </div>
+      </div>
+    </section>
+
+    <div>
+      <h2 class="section-title">Tại sao chọn EduMentor?</h2>
+      <div class="section-subtitle">
+        Kết nối học viên – gia sư một cách <strong>nhanh chóng, minh bạch</strong> và <strong>an toàn</strong>.
+      </div>
+      <div class="three-columns">
+        <div class="info-card">
+          <div class="info-icon">🎯</div>
+          <h3>Gia sư chất lượng</h3>
+          <p>Đội ngũ gia sư được tuyển chọn kỹ lưỡng, có trình độ chuyên môn cao và kinh nghiệm giảng dạy phong phú.</p>
+        </div>
+        <div class="info-card">
+          <div class="info-icon">⏰</div>
+          <h3>Linh hoạt thời gian</h3>
+          <p>Học mọi lúc, mọi nơi với lịch học linh hoạt được sắp xếp theo nhu cầu của học viên.</p>
+        </div>
+        <div class="info-card">
+          <div class="info-icon">📈</div>
+          <h3>Hiệu quả cao</h3>
+          <p>Phương pháp giảng dạy cá nhân hóa giúp học viên tiếp thu kiến thức nhanh chóng và hiệu quả.</p>
+        </div>
+      </div>
+
+      <div class="section-label">Cách thức hoạt động</div>
+      <div class="three-columns">
+        <div class="info-card">
+          <div class="info-icon">👤</div>
+          <h3>Đăng ký tài khoản</h3>
+          <p>Tạo tài khoản học viên, phụ huynh hoặc gia sư trong vài bước đơn giản.</p>
+        </div>
+        <div class="info-card">
+          <div class="info-icon">🔎</div>
+          <h3>Tìm kiếm phù hợp</h3>
+          <p>Tìm gia sư hoặc lớp học phù hợp với nhu cầu, môn học và mức học phí mong muốn.</p>
+        </div>
+        <div class="info-card">
+          <div class="info-icon">🔗</div>
+          <h3>Kết nối – Thanh toán</h3>
+          <p>
+            Gia sư thanh toán phí nhận lớp (25% lương tháng đầu), kết nối lớp thành công và bắt đầu buổi học đầu tiên.
+          </p>
+        </div>
+      </div>
+    </div>
+
+    <!-- ===== CLASSES FOR TUTOR ===== -->
+    <section class="page-section hidden" id="classes-section">
+      <h2 class="page-title">Danh sách bài đăng cần gia sư</h2>
+      <p class="section-lead">
+        Đăng nhập với vai trò <strong>Gia sư</strong> để đăng ký nhận lớp, thanh toán phí nhận lớp và xem trạng thái.
+      </p>
+      <div id="classes-list" class="class-list"></div>
+    </section>
+
+    <!-- ===== TUTOR PROFILE ===== -->
+    <section class="page-section hidden" id="tutor-section">
+      <h2 class="page-title">Thông tin gia sư</h2>
+      <p class="section-lead">
+        Xem hồ sơ, thành tích của gia sư và các lớp đã đăng kí. Phụ huynh có thể sử dụng phần này để đánh giá khách quan.
+      </p>
+      <div id="tutor-not-logged" class="section-lead">
+        Vui lòng đăng nhập với tài khoản <strong>Gia sư</strong> để xem hồ sơ và lịch sử nhận lớp.
+      </div>
+      <div id="tutor-profile-wrapper" class="profile-layout hidden">
+        <div class="profile-card" id="tutor-profile-card"></div>
+        <div class="profile-card">
+          <h3 style="font-size:16px;margin-bottom:8px;color:var(--primary-dark);">
+            Các lớp gia sư đã đăng kí
+          </h3>
+          <div id="tutor-classes-list" class="class-list"></div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===== PARENT POSTS ===== -->
+    <section class="page-section hidden" id="parent-posts-section">
+      <h2 class="page-title">Các bài đăng của phụ huynh – học sinh</h2>
+      <p class="section-lead">
+        Đăng nhập tài khoản <strong>phụ huynh</strong> để xem danh sách bài đăng, xem gia sư ứng tuyển và chấp nhận / từ chối.
+      </p>
+      <div id="parent-not-logged" class="section-lead">
+        Hiện bạn chưa đăng nhập với vai trò <strong>Phụ huynh – Học sinh</strong>.
+      </div>
+      <div id="parent-posts-wrapper" class="hidden">
+        <div id="parent-posts-list" class="class-list"></div>
+      </div>
+    </section>
+
+    <!-- ===== CREATE POST ===== -->
+    <section class="page-section hidden" id="create-post-section">
+      <h2 class="page-title">Đăng bài tìm gia sư</h2>
+      <p class="section-lead">
+        Phụ huynh / học sinh có thể đăng bài tìm gia sư với môn học, mức lương và yêu cầu cụ thể.
+      </p>
+      <div id="create-post-guard" class="section-lead">
+        Vui lòng đăng nhập với vai trò <strong>Phụ huynh – Học sinh</strong> để đăng bài.
+      </div>
+      <div id="create-post-form-wrapper" class="profile-card hidden" style="max-width:640px;margin:0 auto;">
+        <div class="form-row two-cols">
+          <div>
+            <label>Môn học gia sư *</label>
+            <select id="post-subject">
+              <option value="Toán">Toán</option>
+              <option value="Vật lý">Vật lý</option>
+              <option value="Hóa học">Hóa học</option>
+              <option value="Tiếng Anh">Tiếng Anh</option>
+            </select>
+          </div>
+          <div>
+            <label>Thông tin học sinh *</label>
+            <input id="post-grade" placeholder="VD: Học sinh lớp 8" />
+          </div>
+        </div>
+        <div class="form-row">
+          <label>Địa chỉ học *</label>
+          <input id="post-address" placeholder="VD: 123 đường Đặng Thị Nhu" />
+        </div>
+        <div class="form-row two-cols">
+          <div>
+            <label>Thời gian học *</label>
+            <input id="post-schedule" placeholder="VD: Thứ hai 2PM - 4PM" />
+          </div>
+          <div>
+            <label>Mức lương đề xuất *</label>
+            <input id="post-fee" placeholder="VD: 300.000 VND/buổi" />
+          </div>
+        </div>
+        <div class="form-row two-cols">
+          <div>
+            <label>Yêu cầu bằng cấp</label>
+            <input id="post-degree" placeholder="VD: Tốt nghiệp ĐH Sư phạm" />
+          </div>
+          <div>
+            <label>Yêu cầu giới tính / kinh nghiệm</label>
+            <input id="post-gender" placeholder="Không yêu cầu / Nam / Nữ / 2 năm kinh nghiệm..." />
+          </div>
+        </div>
+        <div class="form-row">
+          <label>Mục tiêu học tập</label>
+          <input id="post-goal" placeholder="VD: Cải thiện điểm, luyện thi..." />
+        </div>
+        <div class="form-row">
+          <label>Số điện thoại liên hệ *</label>
+          <input id="post-phone" placeholder="VD: 0123 456 789" />
+        </div>
+        <div style="text-align:right;margin-top:8px;">
+          <button class="btn btn-primary" id="submit-post-btn">➤ Đăng bài ngay</button>
+        </div>
+        <p class="small muted" style="margin-top:6px;">
+          *Bài đăng chỉ là dữ liệu minh hoạ, không được dùng cho mục đích thương mại.
+        </p>
       </div>
     </section>
   </main>
 
-  <!-- FOOTER -->
-  <footer>
-    <div class="container">
-      <div class="footer-top">
-        <div>
-          <div class="footer-title">EDU MENTOR</div>
-          <p>
-            Kết nối gia sư chất lượng với học viên trên toàn quốc.<br />
-            Cam kết mang lại trải nghiệm học tập tốt nhất.
-          </p>
-          <div class="social-row">
-            <span>📘</span>
-            <span>📸</span>
-            <span>🐦</span>
-          </div>
-        </div>
-        <div>
-          <div class="footer-title">Liên kết nhanh</div>
-          <div class="footer-links">
-            <a href="#">Trang chủ</a>
-            <a href="#">Tìm gia sư</a>
-            <a href="#">Đăng ký gia sư</a>
-          </div>
-        </div>
-        <div>
-          <div class="footer-title">Liên hệ</div>
-          <p>📞 0123 456 789</p>
-          <p>✉ anh.nguyen2510@hcmut.edu.vn</p>
-          <p>📍 Trường Đại học Bách khoa - ĐHQG TP.HCM</p>
-        </div>
-      </div>
-      <div class="footer-bottom">
-        © 2025 EDU MENTOR. All rights reserved.
-      </div>
-    </div>
-  </footer>
-
-  <!-- LOGIN MODAL -->
-  <div id="login-modal" class="modal-backdrop hidden">
+  <!-- ===== LOGIN MODAL ===== -->
+  <div class="modal-backdrop" id="login-modal">
     <div class="modal">
-      <button class="modal-close" data-close-modal="login-modal">✕</button>
-      <div class="modal-title">ĐĂNG NHẬP</div>
-
+      <div class="modal-header">
+        <div class="modal-title">Đăng nhập</div>
+        <button class="modal-close" data-close="login-modal">✕</button>
+      </div>
       <div class="modal-tabs">
-        <button class="modal-tab active" data-login-target="student">
-          Học sinh - Phụ huynh
-        </button>
-        <button class="modal-tab" data-login-target="tutor">
-          Gia sư
-        </button>
+        <div class="modal-tab active" data-login-target="parent">Phụ huynh – Học sinh</div>
+        <div class="modal-tab" data-login-target="tutor">Gia sư</div>
       </div>
 
-      <!-- Student / Parent -->
-      <form id="login-student-form">
-        <div class="form-group">
+      <form id="login-parent-form">
+        <div class="form-row">
           <label>Tên tài khoản *</label>
-          <input id="login-student-username" type="text" class="input" placeholder="Nhập tên tài khoản" />
+          <input id="login-parent-username" placeholder="VD: phuhuynh" />
         </div>
-        <div class="form-group password-wrapper">
+        <div class="form-row">
           <label>Mật khẩu *</label>
-          <input
-            id="login-student-password"
-            type="password"
-            class="input password-input"
-            placeholder="Nhập mật khẩu"
-          />
-          <button type="button" class="toggle-password">👁</button>
+          <input id="login-parent-password" type="password" />
         </div>
-        <button id="login-student-submit" type="button" class="btn btn-primary" style="width: 100%; margin-top: 8px;">
+        <button type="submit" class="btn btn-primary" style="width:100%;margin-top:6px;">
           🔓 Đăng nhập
         </button>
       </form>
 
-      <!-- Tutor -->
       <form id="login-tutor-form" class="hidden">
-        <div class="form-group">
+        <div class="form-row">
           <label>Tên tài khoản *</label>
-          <input id="login-tutor-username" type="text" class="input" placeholder="Nhập tên tài khoản" />
+          <input id="login-tutor-username" placeholder="VD: kimanh" />
         </div>
-        <div class="form-group password-wrapper">
+        <div class="form-row">
           <label>Mật khẩu *</label>
-          <input
-            id="login-tutor-password"
-            type="password"
-            class="input password-input"
-            placeholder="Nhập mật khẩu"
-          />
-          <button type="button" class="toggle-password">👁</button>
+          <input id="login-tutor-password" type="password" />
         </div>
-        <button id="login-tutor-submit" type="button" class="btn btn-primary" style="width: 100%; margin-top: 8px;">
+        <button type="submit" class="btn btn-primary" style="width:100%;margin-top:6px;">
           🔓 Đăng nhập
         </button>
       </form>
 
-      <div class="modal-footer-text">
-        Bạn chưa có tài khoản?
-        <a href="#" id="open-register-from-login">Đăng ký ngay</a>
+      <div class="modal-footer">
+        Chưa có tài khoản? <span class="link" id="login-open-register">Đăng ký ngay</span>
       </div>
     </div>
   </div>
 
-  <!-- REGISTER MODAL -->
-  <div id="register-modal" class="modal-backdrop hidden">
+  <!-- ===== REGISTER MODAL ===== -->
+  <div class="modal-backdrop" id="register-modal">
     <div class="modal">
-      <button class="modal-close" data-close-modal="register-modal">✕</button>
-      <div class="modal-title">ĐĂNG KÝ TÀI KHOẢN</div>
-
+      <div class="modal-header">
+        <div class="modal-title">Đăng ký tài khoản</div>
+        <button class="modal-close" data-close="register-modal">✕</button>
+      </div>
       <form id="register-form">
-        <div class="form-group" style="display:flex; gap:10px;">
-          <div style="flex:1;">
+        <div class="form-row two-cols">
+          <div>
             <label>Họ *</label>
-            <input id="reg-lastname" type="text" class="input" />
+            <input id="reg-lastname" />
           </div>
-          <div style="flex:1;">
+          <div>
             <label>Tên *</label>
-            <input id="reg-firstname" type="text" class="input" />
+            <input id="reg-firstname" />
           </div>
         </div>
-        <div class="form-group">
+        <div class="form-row">
           <label>Email *</label>
-          <input id="reg-email" type="email" class="input" />
+          <input id="reg-email" />
         </div>
-        <div class="form-group">
+        <div class="form-row">
           <label>Số điện thoại *</label>
-          <input id="reg-phone" type="tel" class="input" />
+          <input id="reg-phone" />
         </div>
-        <div class="form-group">
+        <div class="form-row">
           <label>Tên tài khoản *</label>
-          <input id="reg-username" type="text" class="input" />
+          <input id="reg-username" placeholder="Không dấu, không khoảng trắng" />
         </div>
-        <div class="form-group password-wrapper">
+        <div class="form-row">
           <label>Mật khẩu *</label>
-          <input
-            id="reg-password"
-            type="password"
-            class="input password-input"
-            value="123456"
-          />
-          <button type="button" class="toggle-password">👁</button>
+          <input id="reg-password" type="password" />
         </div>
-        <div class="form-group">
-          <label>Bạn là</label>
-          <select id="reg-role" class="select">
-            <option value="gia-su">Gia sư</option>
-            <option value="hoc-sinh">Học sinh</option>
-            <option value="phu-huynh">Phụ huynh</option>
+        <div class="form-row">
+          <label>Bạn là *</label>
+          <select id="reg-role">
+            <option value="tutor">Gia sư</option>
+            <option value="parent">Phụ huynh – Học sinh</option>
           </select>
         </div>
-
-        <button id="register-submit" type="button" class="btn btn-primary" style="width: 100%; margin-top: 8px;">
-          ✨ Đăng ký
+        <button type="submit" class="btn btn-primary" style="width:100%;margin-top:6px;">
+          ➕ Đăng ký
         </button>
+        <div class="modal-footer">
+          Đã có tài khoản? <span class="link" id="register-open-login">Đăng nhập ngay</span>
+        </div>
       </form>
-
-      <div class="modal-footer-text">
-        Đã có tài khoản? <a href="#" id="open-login-from-register">Đăng nhập ngay</a>
-      </div>
+      <p class="small muted" style="margin-top:4px;">
+        Với tài khoản <strong>Gia sư</strong>, bạn cần <strong>làm bài kiểm tra 8/10</strong> để được kích hoạt và nhận lớp.
+      </p>
     </div>
   </div>
 
-  <!-- EDIT PROFILE MODAL -->
-  <div id="edit-profile-modal" class="modal-backdrop hidden">
+  <!-- ===== QUIZ MODAL ===== -->
+  <div class="modal-backdrop" id="quiz-modal">
     <div class="modal">
-      <button class="modal-close" data-close-modal="edit-profile-modal">✕</button>
-      <div class="modal-title">Chỉnh sửa thông tin</div>
-
-      <form>
-        <div class="form-group" style="display:flex; gap:10px;">
-          <div style="flex:1;">
-            <label>Họ *</label>
-            <input id="edit-lastname" type="text" class="input" />
-          </div>
-          <div style="flex:1;">
-            <label>Tên *</label>
-            <input id="edit-firstname" type="text" class="input" />
-          </div>
-        </div>
-        <div class="form-group">
-          <label>Số điện thoại *</label>
-          <input id="edit-phone" type="tel" class="input" />
-        </div>
-        <div class="form-group">
-          <label>Email *</label>
-          <input id="edit-email" type="email" class="input" />
-        </div>
-        <div class="form-group">
-          <label>Học vấn</label>
-          <input id="edit-edu" type="text" class="input" />
-        </div>
-        <div class="form-group">
-          <label>Kinh nghiệm</label>
-          <input id="edit-exp" type="text" class="input" />
-        </div>
-        <div class="form-group">
-          <label>Môn dạy</label>
-          <input id="edit-subject" type="text" class="input" />
-        </div>
-        <div class="form-group">
-          <label>Giới tính</label>
-          <select id="edit-gender" class="select">
-            <option>Nam</option>
-            <option>Nữ</option>
-            <option>Khác</option>
-          </select>
-        </div>
-        <div class="form-group">
-          <label>Thành tích cá nhân</label>
-          <input id="edit-achievements" type="text" class="input"
-                 placeholder="Ví dụ: Giải Nhì HSG Toán tỉnh; IELTS 7.5..." />
-        </div>
-
-        <div style="display:flex; justify-content:flex-end; gap:8px; margin-top:6px;">
-          <button type="button" class="btn btn-outline" data-close-modal="edit-profile-modal">
-            Hủy
-          </button>
-          <button type="button" class="btn btn-primary" id="edit-profile-save">
-            Lưu thay đổi
-          </button>
-        </div>
-      </form>
+      <div class="modal-header">
+        <div class="modal-title">Bài kiểm tra dành cho gia sư</div>
+        <button class="modal-close" data-close="quiz-modal">✕</button>
+      </div>
+      <p class="small muted">
+        Chọn môn bạn muốn dạy và trả lời 5 câu hỏi trắc nghiệm. Mỗi câu 2 điểm, đạt
+        <strong>từ 8/10</strong> trở lên thì tài khoản gia sư sẽ được kích hoạt.
+      </p>
+      <div class="form-row" style="margin-top:8px;">
+        <label>Môn kiểm tra</label>
+        <select id="quiz-subject">
+          <option value="Toán">Toán</option>
+          <option value="Vật lý">Vật lý</option>
+          <option value="Tiếng Anh">Tiếng Anh</option>
+        </select>
+      </div>
+      <div class="quiz-list" id="quiz-list"></div>
+      <button class="btn btn-primary" style="width:100%;margin-top:8px;" id="quiz-submit-btn">
+        ✅ Nộp bài kiểm tra
+      </button>
+      <div class="modal-footer" id="quiz-result" style="min-height:18px;"></div>
     </div>
   </div>
 
-  <!-- PAYMENT MODAL -->
-  <div id="payment-modal" class="modal-backdrop hidden">
+  <!-- ===== PAYMENT MODAL ===== -->
+  <div class="modal-backdrop" id="payment-modal">
     <div class="modal">
-      <button class="modal-close" data-close-modal="payment-modal">✕</button>
-      <div class="modal-title">Thanh toán phí nhận lớp</div>
-      <p style="font-size:13px; color:#4a5568; margin-bottom:6px; text-align:center;">
-        Gia sư vui lòng thanh toán <b>phí nhận lớp</b> để hoàn tất kết nối với phụ huynh.
-      </p>
-      <p id="payment-fee-text" style="font-size:13px; color:#2d3748; margin-bottom:10px; text-align:center;">
-        Phí nhận lớp: 25% lương tháng đầu tiên.
-      </p>
-      <div class="qr-options">
-        <div class="qr-card">
-          <div class="qr-title">MoMo (Demo)</div>
-          <div>Số điện thoại: <b>0900 000 000</b></div>
-          <div>Chủ tài khoản: <b>EDUMENTOR</b></div>
-          <div class="qr-box">QR MoMo mẫu</div>
-          <div class="qr-note">Nội dung chuyển khoản: <b>Phi nhan lop - EduMentor</b></div>
-        </div>
-        <div class="qr-card">
-          <div class="qr-title">Vietcombank</div>
-          <div>STK: <b>123456789</b></div>
-          <div>Chủ tài khoản: <b>EDUMENTOR</b></div>
-          <div>Ngân hàng: <b>VIETCOMBANK</b></div>
-          <div class="qr-box">QR Vietcombank mẫu</div>
-          <div class="qr-note">Nội dung: <b>Phi nhan lop - EduMentor</b></div>
-        </div>
+      <div class="modal-header">
+        <div class="modal-title">Thanh toán phí nhận lớp</div>
+        <button class="modal-close" data-close="payment-modal">✕</button>
       </div>
-      <button id="payment-confirm" class="btn btn-primary" style="width:100%; margin-top:4px;">
-        ✅ Xác nhận đã thanh toán
+      <p class="small muted">
+        Gia sư thanh toán <strong>25% tiền lương tháng đầu tiên</strong> để xác nhận nhận lớp. Đây chỉ là
+        minh hoạ, không phát sinh giao dịch thật.
+      </p>
+      <div class="qr-box">
+        <div class="qr-placeholder"></div>
+        <div class="qr-text"><strong>MÃ QR MẪU – CHUYỂN KHOẢN</strong></div>
+        <div>STK: <strong>123456789</strong></div>
+        <div>Chủ tài khoản: <strong>EDUMENTOR</strong></div>
+        <div>Ngân hàng: <strong>VIETCOMBANK</strong></div>
+      </div>
+      <p class="small muted" id="payment-class-text"></p>
+      <button class="btn btn-primary" style="width:100%;margin-top:8px;" id="confirm-payment-btn">
+        💳 Tôi đã thanh toán
       </button>
     </div>
   </div>
 
-  <!-- JS -->
+  <!-- ===== APPLICANTS MODAL ===== -->
+  <div class="modal-backdrop" id="applicants-modal">
+    <div class="modal">
+      <div class="modal-header">
+        <div class="modal-title">Danh sách gia sư ứng tuyển</div>
+        <button class="modal-close" data-close="applicants-modal">✕</button>
+      </div>
+      <div id="applicants-list"></div>
+      <div class="modal-footer small">
+        Phụ huynh chỉ cần <strong>chấp nhận 1 gia sư</strong>, các gia sư còn lại sẽ được thông báo “đã có người khác”.
+      </div>
+    </div>
+  </div>
+
+  <footer>
+    <div class="footer-grid">
+      <div>
+        <div class="footer-title">EDU MENTOR</div>
+        <p>Kết nối gia sư chất lượng với học viên trên toàn quốc. Cam kết mang lại trải nghiệm học tập tốt nhất.</p>
+      </div>
+      <div>
+        <div class="footer-title">Liên kết nhanh</div>
+        <p>Trang chủ</p>
+        <p>Danh sách lớp</p>
+        <p>Đăng bài tìm gia sư</p>
+      </div>
+      <div>
+        <div class="footer-title">Liên hệ</div>
+        <p>📞 0123 456 789</p>
+        <p>✉ anh.nguyen2510@hcmut.edu.vn</p>
+        <p>📍 Trường Đại học Bách khoa - ĐHQG TP.HCM</p>
+      </div>
+    </div>
+    <div class="footer-bottom">© 2025 EDU MENTOR. All rights reserved.</div>
+  </footer>
+
   <script>
-    /* ===== BASIC SPA NAV ===== */
-    const sectionIds = [
-      "home-section",
-      "classes-section",
-      "tutor-section",
-      "test-section",
-      "parent-posts-section",
-      "create-post-section",
+    // ===== DATA MODEL =====
+    const users = {
+      kimanh: {
+        username: "kimanh",
+        password: "123456",
+        role: "tutor",
+        name: "Nguyễn Kim Anh",
+        gender: "Nữ",
+        phone: "0909 123 456",
+        email: "kimanh@example.com",
+        degree: "Sinh viên Khoa Khoa học và Kĩ thuật Máy tính – HCMUT",
+        experience: "2 năm làm gia sư các môn Toán – Lý cấp 2",
+        subject: "Toán",
+        achievements: [
+          "Đạt học bổng khuyến khích học tập nhiều kì tại ĐH Bách khoa.",
+          "Kinh nghiệm ôn thi vào 10 cho nhiều học sinh tại TP.HCM."
+        ],
+        ratingValue: 4.5,
+        ratingCount: 2,
+        approved: true
+      },
+      thaongoc: {
+        username: "thaongoc",
+        password: "123456",
+        role: "tutor",
+        name: "Phạm Thảo Ngọc",
+        gender: "Nữ",
+        phone: "0912 456 789",
+        email: "thaongoc@example.com",
+        degree: "Sinh viên chương trình Kỹ sư Tài năng – HCMUT",
+        experience: "Gia sư Toán – Tiếng Anh 3 năm",
+        subject: "Tiếng Anh",
+        achievements: [
+          "IELTS 7.5, từng tham gia hỗ trợ CLB tiếng Anh cho học sinh THPT.",
+          "Có kinh nghiệm dạy online cho học sinh ở nhiều tỉnh."
+        ],
+        ratingValue: 4.8,
+        ratingCount: 3,
+        approved: true
+      },
+      phuhuynh: {
+        username: "phuhuynh",
+        password: "123456",
+        role: "parent",
+        name: "Trịnh Phương Tuấn",
+        gender: "Nam",
+        phone: "0123 456 789",
+        email: "tuan.ph@example.com"
+      }
+    };
+
+    const classes = [
+      {
+        id: 1,
+        parentUsername: "phuhuynh",
+        parentName: "Đỗ Thị C",
+        subject: "Vật lý",
+        gradeText: "Học sinh lớp 11",
+        address: "123 đường Đặng Thị Nhu",
+        schedule: "Thứ tư 2PM - 4PM",
+        fee: "3.000.000 VND/tháng",
+        degreeReq: "Tốt nghiệp Đại học Sư phạm",
+        genderReq: "Không yêu cầu",
+        goal: "Cải thiện điểm",
+        phone: "0123456789",
+        applicants: [],
+        acceptedTutor: null,
+        rating: null
+      },
+      {
+        id: 2,
+        parentUsername: "phuhuynh",
+        parentName: "Đỗ Thị C",
+        subject: "Toán",
+        gradeText: "Học sinh lớp 8",
+        address: "XXX đường Đặng Thị Nhu",
+        schedule: "Thứ hai 7PM - 9PM",
+        fee: "2.000.000 VND/tháng",
+        degreeReq: "Sinh viên năm 2 trở lên",
+        genderReq: "Ưu tiên Nữ",
+        goal: "Củng cố kiến thức nền tảng",
+        phone: "0123456XXX",
+        applicants: [],
+        acceptedTutor: null,
+        rating: null
+      },
+      {
+        id: 3,
+        parentUsername: "phuhuynh",
+        parentName: "Đỗ Thị C",
+        subject: "Tiếng Anh",
+        gradeText: "Học sinh lớp 10",
+        address: "123 đường Đặng Thị Nhu",
+        schedule: "Thứ bảy 8AM - 10AM",
+        fee: "300 USD/tháng",
+        degreeReq: "IELTS từ 7.0",
+        genderReq: "Không yêu cầu",
+        goal: "Luyện giao tiếp & thi IELTS",
+        phone: "0123456789",
+        applicants: [],
+        acceptedTutor: null,
+        rating: null
+      },
+      {
+        id: 4,
+        parentUsername: "phuhuynh",
+        parentName: "Đỗ Thị C",
+        subject: "Hóa học",
+        gradeText: "Học sinh lớp 9",
+        address: "Quận 10, TP.HCM",
+        schedule: "Thứ ba 7PM - 9PM",
+        fee: "2.500.000 VND/tháng",
+        degreeReq: "Sinh viên ngành Hóa",
+        genderReq: "Không yêu cầu",
+        goal: "Ôn thi vào 10",
+        phone: "0987654321",
+        applicants: [],
+        acceptedTutor: null,
+        rating: null
+      },
+      {
+        id: 5,
+        parentUsername: "phuhuynh",
+        parentName: "Đỗ Thị C",
+        subject: "Toán",
+        gradeText: "Học sinh lớp 6",
+        address: "Thủ Đức, TP.HCM",
+        schedule: "Chủ nhật 9AM - 11AM",
+        fee: "1.800.000 VND/tháng",
+        degreeReq: "Sinh viên Sư phạm/ Bách khoa",
+        genderReq: "Không yêu cầu",
+        goal: "Rèn luyện tư duy, tạo hứng thú học",
+        phone: "0912345678",
+        applicants: [],
+        acceptedTutor: null,
+        rating: null
+      }
     ];
+
+    let currentUser = null;
+    let currentQuizUser = null;
+    let currentPaymentClassId = null;
+    let currentApplicantsClassId = null;
+
+    // ===== HELPERS =====
+    const $ = (sel) => document.querySelector(sel);
+    const $$ = (sel) => Array.from(document.querySelectorAll(sel));
+
     function showSection(id) {
-      sectionIds.forEach((secId) => {
-        const el = document.getElementById(secId);
-        if (!el) return;
-        if (secId === id) el.classList.remove("hidden");
-        else el.classList.add("hidden");
+      $$(".page-section").forEach((sec) => {
+        if (sec.id === id) sec.classList.remove("hidden");
+        else sec.classList.add("hidden");
       });
-      window.scrollTo({ top: 0, behavior: "smooth" });
+      $$(".nav-link").forEach((btn) => {
+        btn.classList.toggle("active", btn.dataset.section === id);
+      });
+      if (id === "tutor-section") renderTutorProfile();
+      if (id === "classes-section") renderClassesForTutor();
+      if (id === "parent-posts-section") renderParentPosts();
     }
-    document.querySelectorAll(".nav-page-btn").forEach((btn) => {
-      btn.addEventListener("click", () => {
-        document
-          .querySelectorAll(".nav-page-btn")
-          .forEach((b) => b.classList.remove("active"));
-        btn.classList.add("active");
-        const target = btn.getAttribute("data-target");
-        if (target) showSection(target);
+
+    function openModal(id) {
+      const el = document.getElementById(id);
+      if (el) el.classList.add("show");
+    }
+
+    function closeModal(id) {
+      const el = document.getElementById(id);
+      if (el) el.classList.remove("show");
+    }
+
+    function updateAuthUI() {
+      if (!currentUser) {
+        $("#auth-logged-out").classList.remove("hidden");
+        $("#auth-logged-in").classList.add("hidden");
+        $("#current-user-label").textContent = "";
+      } else {
+        $("#auth-logged-out").classList.add("hidden");
+        $("#auth-logged-in").classList.remove("hidden");
+        const roleLabel = currentUser.role === "tutor" ? "Gia sư" : "PH/HS";
+        $("#current-user-label").textContent = `${currentUser.name} (${roleLabel})`;
+      }
+      renderClassesForTutor();
+      renderTutorProfile();
+      renderParentPosts();
+      updateCreatePostGuard();
+    }
+
+    function getApplicationForTutor(cls, username) {
+      return cls.applicants.find((a) => a.username === username) || null;
+    }
+
+    function renderClassesForTutor() {
+      const container = $("#classes-list");
+      if (!container) return;
+      let html = "";
+      classes.forEach((cls) => {
+        const isTutor = currentUser && currentUser.role === "tutor";
+        let statusHtml = "";
+        let actionHtml = "";
+
+        if (!isTutor) {
+          statusHtml =
+            '<span class="muted">Đăng nhập với vai trò Gia sư để đăng kí nhận lớp.</span>';
+        } else if (!currentUser.approved) {
+          statusHtml =
+            '<span class="status-pill status-pending">Bạn cần hoàn thành bài kiểm tra để được nhận lớp.</span>';
+          actionHtml =
+            '<button class="btn btn-small btn-outline" id="open-quiz-from-status">Làm bài kiểm tra</button>';
+        } else {
+          const app = getApplicationForTutor(cls, currentUser.username);
+          if (!app) {
+            statusHtml = '<span class="status-pill">Chưa đăng kí lớp này</span>';
+            actionHtml = `<button class="btn btn-primary btn-small" data-action="apply" data-id="${cls.id}">Đăng kí nhận lớp</button>`;
+          } else if (app.status === "pending") {
+            statusHtml =
+              '<span class="status-pill status-pending">Đang chờ phụ huynh chấp nhận</span>';
+          } else if (app.status === "accepted") {
+            statusHtml =
+              '<span class="status-pill status-accepted">Phụ huynh đã chấp nhận. Vui lòng thanh toán phí nhận lớp.</span>';
+            actionHtml = `<button class="btn btn-primary btn-small" data-action="pay" data-id="${cls.id}">Thanh toán phí 25%</button>`;
+          } else if (app.status === "paid") {
+            statusHtml =
+              '<span class="status-pill status-connected">Kết nối lớp thành công – chúc bạn dạy tốt!</span>';
+          } else if (app.status === "rejected") {
+            statusHtml =
+              '<span class="status-pill status-rejected">Rất tiếc, đã có gia sư khác được chọn.</span>';
+          }
+        }
+
+        html += `
+        <div class="class-card">
+          <div class="class-top-row">
+            <div>
+              <div class="class-title">${cls.parentName}</div>
+              <div class="muted">Cần gia sư môn ${cls.subject} – ${cls.gradeText}</div>
+            </div>
+            <div class="badge-subject">${cls.subject}</div>
+          </div>
+          <div class="class-meta">
+            <span>Địa chỉ học: ${cls.address}</span>
+            <span>Thời gian: ${cls.schedule}</span>
+            <span>Mức lương: ${cls.fee}</span>
+            <span>Yêu cầu bằng cấp: ${cls.degreeReq}</span>
+            <span>Yêu cầu giới tính/kinh nghiệm: ${cls.genderReq}</span>
+            <span>Mục tiêu học tập: ${cls.goal}</span>
+          </div>
+          <div class="class-footer">
+            <div>${statusHtml}</div>
+            <div>
+              ${
+                cls.phone
+                  ? `<span class="muted" style="margin-right:8px;">📞 ${cls.phone}</span>`
+                  : ""
+              }
+              ${actionHtml || ""}
+            </div>
+          </div>
+        </div>`;
       });
-    });
+      container.innerHTML = html;
 
-    // Hero buttons
-    document.getElementById("hero-go-classes").addEventListener("click", () => {
-      document
-        .querySelectorAll(".nav-page-btn")
-        .forEach((b) => b.classList.remove("active"));
-      document
-        .querySelector('.nav-page-btn[data-target="classes-section"]')
-        .classList.add("active");
-      showSection("classes-section");
-    });
-    document.getElementById("hero-go-register").addEventListener("click", () => {
-      showSection("home-section");
-      openModal(loginModal); // vào login rồi chuyển qua đăng ký
-    });
-
-    /* ===== MODALS ===== */
-    const loginModal = document.getElementById("login-modal");
-    const registerModal = document.getElementById("register-modal");
-    const editProfileModal = document.getElementById("edit-profile-modal");
-    const paymentModal = document.getElementById("payment-modal");
-
-    const openLoginBtn = document.getElementById("open-login");
-    const openRegisterBtn = document.getElementById("open-register");
-
-    function openModal(el) { if (el) el.classList.remove("hidden"); }
-    function closeModal(el) { if (el) el.classList.add("hidden"); }
-
-    if (openLoginBtn)
-      openLoginBtn.addEventListener("click", () => openModal(loginModal));
-    if (openRegisterBtn)
-      openRegisterBtn.addEventListener("click", () => openModal(registerModal));
-
-    document.querySelectorAll(".modal-close").forEach((btn) => {
-      btn.addEventListener("click", () => {
-        const id = btn.getAttribute("data-close-modal");
-        if (id) closeModal(document.getElementById(id));
-        else closeModal(btn.closest(".modal-backdrop"));
+      container.querySelectorAll("[data-action='apply']").forEach((btn) => {
+        btn.addEventListener("click", () => {
+          if (!currentUser || currentUser.role !== "tutor" || !currentUser.approved) return;
+          const id = Number(btn.dataset.id);
+          const cls = classes.find((c) => c.id === id);
+          if (!cls) return;
+          if (!getApplicationForTutor(cls, currentUser.username)) {
+            cls.applicants.push({ username: currentUser.username, status: "pending" });
+            alert("Đã gửi đăng kí nhận lớp. Vui lòng chờ phụ huynh xác nhận.");
+            renderClassesForTutor();
+            renderParentPosts();
+          }
+        });
       });
+
+      const payBtns = container.querySelectorAll("[data-action='pay']");
+      payBtns.forEach((btn) => {
+        btn.addEventListener("click", () => {
+          const id = Number(btn.dataset.id);
+          openPaymentModal(id);
+        });
+      });
+
+      const quizBtn = document.getElementById("open-quiz-from-status");
+      if (quizBtn) {
+        quizBtn.addEventListener("click", () => {
+          if (currentUser && currentUser.role === "tutor") {
+            currentQuizUser = currentUser.username;
+            openQuizForUser();
+          }
+        });
+      }
+    }
+
+    function renderTutorProfile() {
+      const guard = $("#tutor-not-logged");
+      const wrap = $("#tutor-profile-wrapper");
+      if (!currentUser || currentUser.role !== "tutor") {
+        guard.classList.remove("hidden");
+        wrap.classList.add("hidden");
+        return;
+      }
+      guard.classList.add("hidden");
+      wrap.classList.remove("hidden");
+
+      const u = currentUser;
+      const profileCard = $("#tutor-profile-card");
+
+      // rating
+      let ratingText = "Chưa có đánh giá";
+      if (u.ratingCount && u.ratingValue) {
+        ratingText = `${u.ratingValue.toFixed(1)}/5 (${u.ratingCount} đánh giá)`;
+      }
+
+      const achievementsHtml =
+        u.achievements && u.achievements.length
+          ? `<ul>${u.achievements.map((a) => `<li>${a}</li>`).join("")}</ul>`
+          : `<p class="muted small">Chưa có thành tích nào. Bạn có thể thêm bên dưới.</p>`;
+
+      profileCard.innerHTML = `
+        <div class="profile-header">
+          <div class="profile-avatar">${u.name.split(" ").slice(-1)[0][0] || "G"}</div>
+          <div>
+            <h3>${u.name}</h3>
+            <p>Gia sư môn ${u.subject || "____"}</p>
+            <div class="rating-stars">★ ★ ★ ★ ★</div>
+            <div class="muted small">Đánh giá hiện tại: ${ratingText}</div>
+          </div>
+        </div>
+        <div class="profile-grid">
+          <div><strong>Giới tính:</strong> <span>${u.gender || "-"}</span></div>
+          <div><strong>Số điện thoại:</strong> <span>${u.phone || "-"}</span></div>
+          <div><strong>Email:</strong> <span>${u.email || "-"}</span></div>
+          <div><strong>Học vấn:</strong> <span>${u.degree || "-"}</span></div>
+          <div><strong>Kinh nghiệm:</strong> <span>${u.experience || "-"}</span></div>
+          <div><strong>Trạng thái:</strong> <span>${
+            u.approved ? "Đã được phép nhận lớp" : "Chưa vượt qua bài kiểm tra"
+          }</span></div>
+        </div>
+        <div class="achievements">
+          <h4>Thành tích cá nhân</h4>
+          ${achievementsHtml}
+          <textarea id="achievement-input" placeholder="VD: Học sinh A tăng từ 6.0 lên 8.5 sau 3 tháng..."></textarea>
+          <button class="btn btn-outline btn-small" id="save-achievement-btn">💡 Lưu thành tích</button>
+          <p class="small muted" style="margin-top:4px;">
+            Thành tích do gia sư cung cấp sẽ được EduMentor kiểm tra tính xác thực khi cần.
+          </p>
+        </div>
+      `;
+
+      const saveBtn = $("#save-achievement-btn");
+      if (saveBtn) {
+        saveBtn.addEventListener("click", () => {
+          const val = $("#achievement-input").value.trim();
+          if (!val) return;
+          if (!u.achievements) u.achievements = [];
+          u.achievements.push(val);
+          $("#achievement-input").value = "";
+          renderTutorProfile();
+        });
+      }
+
+      // classes of tutor
+      const list = $("#tutor-classes-list");
+      let html = "";
+      classes.forEach((cls) => {
+        const app = getApplicationForTutor(cls, u.username);
+        if (!app) return;
+        let statusHtml = "";
+        if (app.status === "pending")
+          statusHtml = '<span class="status-pill status-pending">Đang chờ phụ huynh chấp nhận</span>';
+        else if (app.status === "accepted")
+          statusHtml =
+            '<span class="status-pill status-accepted">Đã được chấp nhận – chờ thanh toán phí nhận lớp</span>';
+        else if (app.status === "paid")
+          statusHtml =
+            '<span class="status-pill status-connected">Kết nối lớp thành công</span>';
+        else if (app.status === "rejected")
+          statusHtml =
+            '<span class="status-pill status-rejected">Rất tiếc, phụ huynh đã chọn gia sư khác</span>';
+
+        html += `
+        <div class="class-card">
+          <div class="class-top-row">
+            <div>
+              <div class="class-title">${cls.parentName}</div>
+              <div class="muted">Môn ${cls.subject} – ${cls.gradeText}</div>
+            </div>
+            <div class="badge-subject">${cls.subject}</div>
+          </div>
+          <div class="class-meta">
+            <span>Địa chỉ: ${cls.address}</span>
+            <span>Thời gian: ${cls.schedule}</span>
+            <span>Mức lương: ${cls.fee}</span>
+          </div>
+          <div class="class-footer">
+            <div>${statusHtml}</div>
+          </div>
+        </div>`;
+      });
+      list.innerHTML = html || '<p class="muted small">Chưa đăng kí lớp nào.</p>';
+    }
+
+    function renderParentPosts() {
+      const guard = $("#parent-not-logged");
+      const wrap = $("#parent-posts-wrapper");
+      const list = $("#parent-posts-list");
+      if (!currentUser || currentUser.role !== "parent") {
+        guard.classList.remove("hidden");
+        wrap.classList.add("hidden");
+        return;
+      }
+      guard.classList.add("hidden");
+      wrap.classList.remove("hidden");
+
+      let html = "";
+      classes.forEach((cls) => {
+        if (cls.parentUsername !== currentUser.username) return;
+        const applicantCount = cls.applicants.length;
+        let applicantsText = applicantCount
+          ? `Xem gia sư ứng tuyển (${applicantCount})`
+          : "Chưa có gia sư ứng tuyển";
+
+        let statusHtml = "";
+        if (!cls.acceptedTutor && !applicantCount) {
+          statusHtml = '<span class="status-pill">Chưa có gia sư ứng tuyển</span>';
+        } else if (!cls.acceptedTutor && applicantCount) {
+          statusHtml =
+            '<span class="status-pill status-pending">Đang chờ phụ huynh xem danh sách gia sư ứng tuyển</span>';
+        } else if (cls.acceptedTutor) {
+          const tutorName = users[cls.acceptedTutor]
+            ? users[cls.acceptedTutor].name
+            : cls.acceptedTutor;
+          const app = getApplicationForTutor(cls, cls.acceptedTutor);
+          if (app && app.status === "paid") {
+            statusHtml = `<span class="status-pill status-connected">Đã kết nối với gia sư ${tutorName}</span>`;
+          } else if (app && app.status === "accepted") {
+            statusHtml = `<span class="status-pill status-accepted">Đã chọn gia sư ${tutorName}. Chờ thanh toán phí.</span>`;
+          }
+        }
+
+        // rating form
+        let ratingHtml = "";
+        const acceptedApp =
+          cls.acceptedTutor && getApplicationForTutor(cls, cls.acceptedTutor);
+        if (acceptedApp && acceptedApp.status === "paid") {
+          if (!cls.rating) {
+            ratingHtml = `
+              <div class="small" style="margin-top:6px;">
+                <strong>Đánh giá gia sư:</strong>
+                <select data-rate-select="${cls.id}">
+                  <option value="">Số sao</option>
+                  <option value="5">5 sao</option>
+                  <option value="4">4 sao</option>
+                  <option value="3">3 sao</option>
+                  <option value="2">2 sao</option>
+                  <option value="1">1 sao</option>
+                </select>
+                <textarea data-rate-comment="${cls.id}" style="width:100%;margin-top:4px;border-radius:10px;border:1px solid var(--border);padding:6px 8px;font-size:12px;" placeholder="Nhận xét ngắn về gia sư..."></textarea>
+                <button class="btn btn-small btn-outline" data-rate-submit="${cls.id}" style="margin-top:4px;">💬 Gửi đánh giá</button>
+              </div>
+            `;
+          } else {
+            ratingHtml = `
+              <div class="small" style="margin-top:6px;">
+                <strong>Đánh giá của bạn:</strong>
+                <span class="rating-stars">${"★".repeat(
+                  cls.rating.value
+                )}${"☆".repeat(5 - cls.rating.value)}</span>
+                – ${cls.rating.comment || "Không có nhận xét"}
+              </div>
+            `;
+          }
+        }
+
+        html += `
+        <div class="class-card">
+          <div class="class-top-row">
+            <div>
+              <div class="class-title">${cls.parentName}</div>
+              <div class="muted">Cần gia sư môn ${cls.subject} – ${cls.gradeText}</div>
+            </div>
+            <div class="badge-subject">${cls.subject}</div>
+          </div>
+          <div class="class-meta">
+            <span>Địa chỉ học: ${cls.address}</span>
+            <span>Thời gian học: ${cls.schedule}</span>
+            <span>Mức lương: ${cls.fee}</span>
+            <span>Yêu cầu bằng cấp: ${cls.degreeReq}</span>
+            <span>Yêu cầu giới tính/kinh nghiệm: ${cls.genderReq}</span>
+            <span>Mục tiêu học tập: ${cls.goal}</span>
+          </div>
+          <div class="class-footer">
+            <div>${statusHtml}</div>
+            <div>
+              <span class="muted" style="margin-right:8px;">📞 ${cls.phone}</span>
+              ${
+                applicantCount
+                  ? `<button class="btn btn-outline btn-small" data-action="view-applicants" data-id="${cls.id}">${applicantsText}</button>`
+                  : `<span class="muted small">${applicantsText}</span>`
+              }
+            </div>
+          </div>
+          ${ratingHtml}
+        </div>`;
+      });
+      list.innerHTML = html || '<p class="muted small">Bạn chưa có bài đăng nào.</p>';
+
+      list.querySelectorAll("[data-action='view-applicants']").forEach((btn) => {
+        btn.addEventListener("click", () => {
+          const id = Number(btn.dataset.id);
+          openApplicantsModal(id);
+        });
+      });
+
+      // rating events
+      list.querySelectorAll("[data-rate-submit]").forEach((btn) => {
+        btn.addEventListener("click", () => {
+          const id = Number(btn.dataset.rateSubmit);
+          const select = list.querySelector(`[data-rate-select="${id}"]`);
+          const textarea = list.querySelector(`[data-rate-comment="${id}"]`);
+          if (!select || !textarea) return;
+          const val = Number(select.value);
+          const comment = textarea.value.trim();
+          if (!val) {
+            alert("Vui lòng chọn số sao đánh giá.");
+            return;
+          }
+          const cls = classes.find((c) => c.id === id);
+          if (!cls || !cls.acceptedTutor) return;
+          cls.rating = { value: val, comment, by: currentUser.username };
+          const tutor = users[cls.acceptedTutor];
+          if (tutor) {
+            if (!tutor.ratingCount) tutor.ratingCount = 0;
+            if (!tutor.ratingValue) tutor.ratingValue = 0;
+            tutor.ratingValue =
+              (tutor.ratingValue * tutor.ratingCount + val) / (tutor.ratingCount + 1);
+            tutor.ratingCount += 1;
+          }
+          alert("Cảm ơn bạn đã đánh giá gia sư!");
+          renderParentPosts();
+          renderTutorProfile();
+        });
+      });
+    }
+
+    function updateCreatePostGuard() {
+      const guard = $("#create-post-guard");
+      const wrapper = $("#create-post-form-wrapper");
+      if (!currentUser || currentUser.role !== "parent") {
+        guard.classList.remove("hidden");
+        wrapper.classList.add("hidden");
+      } else {
+        guard.classList.add("hidden");
+        wrapper.classList.remove("hidden");
+      }
+    }
+
+    // ===== APPLICANTS MODAL =====
+    function openApplicantsModal(classId) {
+      currentApplicantsClassId = classId;
+      const cls = classes.find((c) => c.id === classId);
+      if (!cls) return;
+      const list = $("#applicants-list");
+      if (!cls.applicants.length) {
+        list.innerHTML = '<p class="muted small">Hiện chưa có gia sư ứng tuyển.</p>';
+      } else {
+        let html = "";
+        cls.applicants.forEach((app) => {
+          const tutor = users[app.username];
+          const name = tutor ? tutor.name : app.username;
+          const initial = name.split(" ").slice(-1)[0][0] || "G";
+          let statusText = "";
+          if (app.status === "pending") statusText = "Đang chờ quyết định";
+          else if (app.status === "accepted") statusText = "Đã được chọn";
+          else if (app.status === "rejected") statusText = "Đã bị từ chối";
+          else if (app.status === "paid") statusText = "Đã thanh toán – kết nối thành công";
+
+          html += `
+          <div class="applicant-row">
+            <div class="applicant-main">
+              <div class="avatar-circle">${initial}</div>
+              <div>
+                <div>${name}</div>
+                <div class="muted small">${tutor ? tutor.subject || "Gia sư" : "Gia sư"}</div>
+                <div class="small muted">${statusText}</div>
+              </div>
+            </div>
+            <div>
+              <button class="btn btn-small btn-outline" data-accept="${app.username}">Chấp nhận</button>
+              <button class="btn btn-small" style="background:#ffe6e6;color:#b3261e;" data-reject="${app.username}">Từ chối</button>
+            </div>
+          </div>`;
+        });
+        list.innerHTML = html;
+      }
+
+      // attach events
+      list.querySelectorAll("[data-accept]").forEach((btn) => {
+        btn.addEventListener("click", () => {
+          const username = btn.dataset.accept;
+          const cls = classes.find((c) => c.id === currentApplicantsClassId);
+          if (!cls) return;
+          cls.acceptedTutor = username;
+          cls.applicants.forEach((a) => {
+            if (a.username === username) a.status = "accepted";
+            else a.status = "rejected";
+          });
+          alert("Đã chấp nhận gia sư. Vui lòng thông báo cho gia sư thanh toán phí nhận lớp.");
+          renderParentPosts();
+          renderClassesForTutor();
+          renderTutorProfile();
+          openApplicantsModal(cls.id); // refresh
+        });
+      });
+
+      list.querySelectorAll("[data-reject]").forEach((btn) => {
+        btn.addEventListener("click", () => {
+          const username = btn.dataset.reject;
+          const cls = classes.find((c) => c.id === currentApplicantsClassId);
+          if (!cls) return;
+          const app = cls.applicants.find((a) => a.username === username);
+          if (app) app.status = "rejected";
+          if (cls.acceptedTutor === username) cls.acceptedTutor = null;
+          alert("Đã từ chối gia sư.");
+          renderParentPosts();
+          renderClassesForTutor();
+          renderTutorProfile();
+          openApplicantsModal(cls.id);
+        });
+      });
+
+      openModal("applicants-modal");
+    }
+
+    // ===== PAYMENT =====
+    function openPaymentModal(classId) {
+      currentPaymentClassId = classId;
+      const cls = classes.find((c) => c.id === classId);
+      if (!cls || !currentUser) return;
+      const tutorApp = getApplicationForTutor(cls, currentUser.username);
+      if (!tutorApp || tutorApp.status !== "accepted") return;
+      $("#payment-class-text").textContent =
+        "Lớp: " +
+        cls.parentName +
+        " – Môn " +
+        cls.subject +
+        " – " +
+        cls.gradeText +
+        ". Phí nhận lớp: 25% tháng đầu (" +
+        cls.fee +
+        ").";
+      openModal("payment-modal");
+    }
+
+    $("#confirm-payment-btn").addEventListener("click", () => {
+      if (!currentUser || currentUser.role !== "tutor" || !currentPaymentClassId) return;
+      const cls = classes.find((c) => c.id === currentPaymentClassId);
+      if (!cls) return;
+      const app = getApplicationForTutor(cls, currentUser.username);
+      if (!app || app.status !== "accepted") return;
+      app.status = "paid";
+      alert("Thanh toán thành công! Kết nối lớp đã được xác nhận.");
+      renderClassesForTutor();
+      renderTutorProfile();
+      renderParentPosts();
+      closeModal("payment-modal");
     });
 
-    document.querySelectorAll(".modal-backdrop").forEach((backdrop) => {
+    // ===== QUIZ =====
+    const quizQuestions = [
+      {
+        q: "Trong 5 buổi, học sinh làm đúng 40/50 câu. Điểm phần trăm chính xác là:",
+        opts: ["70%", "75%", "80%", "90%"],
+        ans: 2
+      },
+      {
+        q: "Phương trình 2x + 5 = 15 có nghiệm:",
+        opts: ["x = 5", "x = 10", "x = -5", "x = 2,5"],
+        ans: 0
+      },
+      {
+        q: "Khi học sinh không hiểu bài, phản ứng phù hợp nhất của gia sư là:",
+        opts: [
+          "Giảng lại với ví dụ đơn giản hơn",
+          "Tăng tốc độ giảng để kịp thời gian",
+          "Bỏ qua, nhắc học sinh tự xem lại",
+          "Phê bình trước mặt phụ huynh"
+        ],
+        ans: 0
+      },
+      {
+        q: "Một buổi dạy hiệu quả nên:",
+        opts: [
+          "Chỉ làm bài tập trong sách",
+          "Bao gồm ôn lại, giảng bài mới và luyện tập",
+          "Chỉ tập trung vào bài khó",
+          "Cho học sinh tự học, gia sư chỉ quan sát"
+        ],
+        ans: 1
+      },
+      {
+        q: "Yếu tố quan trọng nhất của gia sư EduMentor là:",
+        opts: ["Kiến thức", "Sự tận tâm", "Lương cao", "Thời gian rảnh"],
+        ans: 1
+      }
+    ];
+
+    function renderQuiz() {
+      const list = $("#quiz-list");
+      let html = "";
+      quizQuestions.forEach((q, idx) => {
+        html += `
+          <div class="quiz-question">
+            <strong>Câu ${idx + 1}: ${q.q}</strong>
+            <div class="quiz-options">
+              ${q.opts
+                .map(
+                  (opt, i) =>
+                    `<label><input type="radio" name="quiz-${idx}" value="${i}"> ${opt}</label>`
+                )
+                .join("")}
+            </div>
+          </div>
+        `;
+      });
+      list.innerHTML = html;
+      $("#quiz-result").textContent = "";
+    }
+
+    function openQuizForUser() {
+      renderQuiz();
+      openModal("quiz-modal");
+    }
+
+    $("#quiz-submit-btn").addEventListener("click", () => {
+      let score = 0;
+      quizQuestions.forEach((q, idx) => {
+        const selected = document.querySelector(
+          `input[name="quiz-${idx}"]:checked`
+        );
+        if (selected && Number(selected.value) === q.ans) score += 2;
+      });
+      const resultEl = $("#quiz-result");
+      if (score >= 8) {
+        resultEl.innerHTML =
+          '<span style="color:var(--success);font-weight:600;">Bạn đạt ' +
+          score +
+          "/10. Tài khoản gia sư đã được kích hoạt!</span>";
+        if (currentQuizUser && users[currentQuizUser]) {
+          users[currentQuizUser].approved = true;
+        }
+        if (currentQuizUser && (!currentUser || currentUser.username === currentQuizUser)) {
+          currentUser = users[currentQuizUser];
+          updateAuthUI();
+        }
+      } else {
+        resultEl.innerHTML =
+          '<span style="color:var(--danger);font-weight:600;">Bạn đạt ' +
+          score +
+          "/10. Chưa đạt yêu cầu, vui lòng thử lại sau.</span>";
+      }
+    });
+
+    // ===== AUTH HANDLERS =====
+    $("#open-login").addEventListener("click", () => openModal("login-modal"));
+    $("#open-register").addEventListener("click", () =>
+      openModal("register-modal")
+    );
+
+    $("#login-open-register").addEventListener("click", () => {
+      closeModal("login-modal");
+      openModal("register-modal");
+    });
+    $("#register-open-login").addEventListener("click", () => {
+      closeModal("register-modal");
+      openModal("login-modal");
+    });
+
+    $$("#login-modal .modal-close").forEach((btn) =>
+      btn.addEventListener("click", () => closeModal("login-modal"))
+    );
+    $$("#register-modal .modal-close").forEach((btn) =>
+      btn.addEventListener("click", () => closeModal("register-modal"))
+    );
+    $$("#quiz-modal .modal-close").forEach((btn) =>
+      btn.addEventListener("click", () => closeModal("quiz-modal"))
+    );
+    $$("#payment-modal .modal-close").forEach((btn) =>
+      btn.addEventListener("click", () => closeModal("payment-modal"))
+    );
+    $$("#applicants-modal .modal-close").forEach((btn) =>
+      btn.addEventListener("click", () => closeModal("applicants-modal"))
+    );
+
+    $$(".modal-backdrop").forEach((backdrop) => {
       backdrop.addEventListener("click", (e) => {
-        if (e.target === backdrop) closeModal(backdrop);
+        if (e.target === backdrop) backdrop.classList.remove("show");
       });
     });
 
-    /* LOGIN TABS */
-    const loginTabs = document.querySelectorAll(".modal-tab");
-    const loginStudentForm = document.getElementById("login-student-form");
-    const loginTutorForm = document.getElementById("login-tutor-form");
+    // login tabs
+    const loginTabs = $$("#login-modal .modal-tab");
+    const loginParentForm = $("#login-parent-form");
+    const loginTutorForm = $("#login-tutor-form");
     loginTabs.forEach((tab) => {
       tab.addEventListener("click", () => {
         loginTabs.forEach((t) => t.classList.remove("active"));
         tab.classList.add("active");
-        const type = tab.getAttribute("data-login-target");
-        if (type === "student") {
-          loginStudentForm.classList.remove("hidden");
+        const type = tab.dataset.loginTarget;
+        if (type === "parent") {
+          loginParentForm.classList.remove("hidden");
           loginTutorForm.classList.add("hidden");
         } else {
-          loginStudentForm.classList.add("hidden");
+          loginParentForm.classList.add("hidden");
           loginTutorForm.classList.remove("hidden");
         }
       });
     });
 
-    /* PASSWORD TOGGLE */
-    document.querySelectorAll(".toggle-password").forEach((btn) => {
-      btn.addEventListener("click", () => {
-        const input = btn
-          .closest(".password-wrapper")
-          .querySelector(".password-input");
-        if (input) {
-          const type =
-            input.getAttribute("type") === "password" ? "text" : "password";
-          input.setAttribute("type", type);
-        }
-      });
+    loginParentForm.addEventListener("submit", (e) => {
+      e.preventDefault();
+      const u = $("#login-parent-username").value.trim();
+      const p = $("#login-parent-password").value;
+      const acc = users[u];
+      if (!acc || acc.password !== p || acc.role !== "parent") {
+        alert("Sai tài khoản hoặc mật khẩu phụ huynh.");
+        return;
+      }
+      currentUser = acc;
+      closeModal("login-modal");
+      updateAuthUI();
+      showSection("parent-posts-section");
     });
 
-    /* SWITCH LOGIN <-> REGISTER */
-    document
-      .getElementById("open-register-from-login")
-      .addEventListener("click", (e) => {
-        e.preventDefault();
-        closeModal(loginModal);
-        openModal(registerModal);
-      });
-    document
-      .getElementById("open-login-from-register")
-      .addEventListener("click", (e) => {
-        e.preventDefault();
-        closeModal(registerModal);
-        openModal(loginModal);
-      });
-
-    /* ===== SIMPLE AUTH & DATA (localStorage) ===== */
-    const USERS_KEY = "edm_users_v3";
-    const CURRENT_USER_KEY = "edm_current_user_v3";
-    const CLASSES_KEY = "edm_classes_v1";
-    const REQUESTS_KEY = "edm_requests_v1";
-    const RATINGS_KEY = "edm_ratings_v1";
-
-    function loadUsers() {
-      try {
-        const raw = localStorage.getItem(USERS_KEY);
-        return raw ? JSON.parse(raw) : [];
-      } catch { return []; }
-    }
-    function saveUsers(users) {
-      localStorage.setItem(USERS_KEY, JSON.stringify(users));
-    }
-    function loadCurrentUser() {
-      try {
-        const raw = localStorage.getItem(CURRENT_USER_KEY);
-        return raw ? JSON.parse(raw) : null;
-      } catch { return null; }
-    }
-    function saveCurrentUser(user) {
-      if (user) localStorage.setItem(CURRENT_USER_KEY, JSON.stringify(user));
-      else localStorage.removeItem(CURRENT_USER_KEY);
-    }
-
-    function loadClasses() {
-      try {
-        const raw = localStorage.getItem(CLASSES_KEY);
-        if (raw) return JSON.parse(raw);
-      } catch {}
-      // nếu chưa có thì tạo 5 bài đăng mẫu
-      const baseClasses = [
-        {
-          id: 1,
-          parentUsername: "phuhuynh",
-          parentName: "Đỗ Thị C",
-          subject: "Vật lý",
-          gradeText: "Học sinh lớp 11",
-          address: "123 đường Đặng Thị Nhu",
-          schedule: "Thứ hai 2PM - 4PM",
-          fee: "3.000.000 VND",
-          degreeReq: "Tốt nghiệp Đại học Sư phạm",
-          genderReq: "Không yêu cầu",
-          goal: "Cải thiện điểm",
-          phone: "0123456789",
-        },
-        {
-          id: 2,
-          parentUsername: "phuhuynh",
-          parentName: "Đỗ Thị C",
-          subject: "Toán",
-          gradeText: "Học sinh lớp 10",
-          address: "123 đường Đặng Thị Nhu",
-          schedule: "Thứ hai 2PM - 4PM",
-          fee: "30 USD",
-          degreeReq: "Tốt nghiệp Đại học Sư phạm",
-          genderReq: "Không yêu cầu",
-          goal: "Củng cố kiến thức",
-          phone: "0123456789",
-        },
-        {
-          id: 3,
-          parentUsername: "phuhuynh",
-          parentName: "Nguyễn Văn A",
-          subject: "Hóa",
-          gradeText: "Học sinh lớp 8",
-          address: "XXX đường Đặng Thị Nhu",
-          schedule: "Thứ hai 2PM - 4PM",
-          fee: "2.000.000 VND",
-          degreeReq: "Tốt nghiệp Đại học Sư phạm",
-          genderReq: "Không yêu cầu",
-          goal: "Cải thiện điểm",
-          phone: "0123456XXX",
-        },
-        {
-          id: 4,
-          parentUsername: "parent2",
-          parentName: "Trần Thị B",
-          subject: "Tiếng Anh",
-          gradeText: "Học sinh lớp 9",
-          address: "YYY đường Lê Lợi",
-          schedule: "Thứ ba 7PM - 9PM",
-          fee: "2.500.000 VND",
-          degreeReq: "Sinh viên năm 3 trở lên",
-          genderReq: "Nữ",
-          goal: "Luyện giao tiếp",
-          phone: "0988123456",
-        },
-        {
-          id: 5,
-          parentUsername: "parent2",
-          parentName: "Phạm Văn D",
-          subject: "Toán",
-          gradeText: "Học sinh lớp 6",
-          address: "ZZZ đường 3/2",
-          schedule: "Thứ bảy 8AM - 10AM",
-          fee: "1.800.000 VND",
-          degreeReq: "Sinh viên Sư phạm Toán",
-          genderReq: "Không yêu cầu",
-          goal: "Củng cố kiến thức nền",
-          phone: "0977123456",
-        },
-      ];
-      localStorage.setItem(CLASSES_KEY, JSON.stringify(baseClasses));
-      return baseClasses;
-    }
-    function saveClasses(classes) {
-      localStorage.setItem(CLASSES_KEY, JSON.stringify(classes));
-    }
-
-    function loadRequests() {
-      try {
-        const raw = localStorage.getItem(REQUESTS_KEY);
-        return raw ? JSON.parse(raw) : [];
-      } catch { return []; }
-    }
-    function saveRequests(reqs) {
-      localStorage.setItem(REQUESTS_KEY, JSON.stringify(reqs));
-    }
-
-    function loadRatings() {
-      try {
-        const raw = localStorage.getItem(RATINGS_KEY);
-        return raw ? JSON.parse(raw) : [];
-      } catch { return []; }
-    }
-    function saveRatings(ratings) {
-      localStorage.setItem(RATINGS_KEY, JSON.stringify(ratings));
-    }
-
-    let users = loadUsers();
-    if (!users || users.length === 0) {
-      users = [
-        {
-          username: "kimanh",
-          password: "123456",
-          firstName: "Kim Anh",
-          lastName: "Nguyễn",
-          email: "kimanh@example.com",
-          phone: "0901234567",
-          role: "gia-su",
-          tutorVerified: true,
-          edu: "Sinh viên Kỹ thuật Máy tính - HCMUT",
-          exp: "2 năm gia sư Toán - Lý THCS",
-          subject: "Toán, Lý",
-          achievements: "Giải Nhì HSG Toán tỉnh; GPA 8.7/10",
-          gender: "Nữ",
-        },
-        {
-          username: "thaongoc",
-          password: "123456",
-          firstName: "Thảo Ngọc",
-          lastName: "Phạm",
-          email: "thaongoc@example.com",
-          phone: "0902345678",
-          role: "gia-su",
-          tutorVerified: true,
-          edu: "Sinh viên Khoa Điện - Điện tử - HCMUT",
-          exp: "1.5 năm gia sư Vật lý",
-          subject: "Vật lý",
-          achievements: "Giải Ba HSG Vật lý cấp thành phố",
-          gender: "Nữ",
-        },
-        {
-          username: "phuhuynh",
-          password: "123456",
-          firstName: "Phương Tuấn",
-          lastName: "Trịnh",
-          email: "tuanparent@example.com",
-          phone: "0912345678",
-          role: "phu-huynh",
-        },
-        {
-          username: "parent2",
-          password: "123456",
-          firstName: "Lan",
-          lastName: "Nguyễn",
-          email: "lanparent@example.com",
-          phone: "0934567890",
-          role: "phu-huynh",
-        },
-      ];
-      saveUsers(users);
-    }
-
-    let currentUser = loadCurrentUser();
-    let classes = loadClasses();
-    let requests = loadRequests();
-    let ratings = loadRatings();
-
-    const guestActions = document.getElementById("guest-actions");
-    const userActions = document.getElementById("user-actions");
-    const currentUserLabel = document.getElementById("current-user-label");
-    const logoutBtn = document.getElementById("logout-btn");
-
-    function roleToText(role) {
-      if (role === "gia-su") return "Gia sư";
-      if (role === "phu-huynh") return "Phụ huynh";
-      if (role === "hoc-sinh") return "Học sinh";
-      return "";
-    }
-
-    function updateAuthUI() {
-      if (currentUser) {
-        guestActions.classList.add("hidden");
-        userActions.classList.remove("hidden");
-        const fullName =
-          ((currentUser.lastName || "") + " " + (currentUser.firstName || "")).trim() ||
-          currentUser.username;
-        const roleText = roleToText(currentUser.role);
-        currentUserLabel.textContent =
-          fullName + (roleText ? ` (${roleText})` : "");
-      } else {
-        guestActions.classList.remove("hidden");
-        userActions.classList.add("hidden");
-      }
-      renderAll();
-    }
-
-    if (logoutBtn) {
-      logoutBtn.addEventListener("click", () => {
-        currentUser = null;
-        saveCurrentUser(null);
-        updateAuthUI();
-        alert("Đã đăng xuất.");
-      });
-    }
-
-    /* REGISTER */
-    document.getElementById("register-submit").addEventListener("click", () => {
-      const lastName = document.getElementById("reg-lastname").value.trim();
-      const firstName = document.getElementById("reg-firstname").value.trim();
-      const email = document.getElementById("reg-email").value.trim();
-      const phone = document.getElementById("reg-phone").value.trim();
-      const username = document.getElementById("reg-username").value.trim();
-      const password = document.getElementById("reg-password").value;
-      const role = document.getElementById("reg-role").value;
-
-      if (!username || !password || !lastName || !firstName) {
-        alert("Vui lòng nhập đầy đủ Họ, Tên, Tài khoản và Mật khẩu.");
+    loginTutorForm.addEventListener("submit", (e) => {
+      e.preventDefault();
+      const u = $("#login-tutor-username").value.trim();
+      const p = $("#login-tutor-password").value;
+      const acc = users[u];
+      if (!acc || acc.password !== p || acc.role !== "tutor") {
+        alert("Sai tài khoản hoặc mật khẩu gia sư.");
         return;
       }
-      if (users.some((u) => u.username === username)) {
-        alert("Tên tài khoản đã tồn tại.");
+      currentUser = acc;
+      updateAuthUI();
+      closeModal("login-modal");
+      showSection("classes-section");
+    });
+
+    $("#logout-btn").addEventListener("click", () => {
+      currentUser = null;
+      updateAuthUI();
+      showSection("home-section");
+    });
+
+    // register
+    $("#register-form").addEventListener("submit", (e) => {
+      e.preventDefault();
+      const ln = $("#reg-lastname").value.trim();
+      const fn = $("#reg-firstname").value.trim();
+      const email = $("#reg-email").value.trim();
+      const phone = $("#reg-phone").value.trim();
+      const username = $("#reg-username").value.trim();
+      const password = $("#reg-password").value;
+      const role = $("#reg-role").value;
+      if (!ln || !fn || !email || !phone || !username || !password) {
+        alert("Vui lòng điền đầy đủ thông tin bắt buộc.");
         return;
       }
-      const newUser = {
+      if (users[username]) {
+        alert("Tên tài khoản đã tồn tại, vui lòng chọn tên khác.");
+        return;
+      }
+      const user = {
         username,
         password,
-        firstName,
-        lastName,
+        role,
+        name: ln + " " + fn,
         email,
         phone,
-        role,
+        gender: "",
+        subject: role === "tutor" ? "Toán" : "",
+        achievements: [],
+        approved: role === "tutor" ? false : true
       };
-      if (role === "gia-su") {
-        newUser.tutorVerified = false;
-      }
-      users.push(newUser);
-      saveUsers(users);
-
-      if (role === "gia-su") {
-        currentUser = newUser;
-        saveCurrentUser(currentUser);
-        closeModal(registerModal);
+      users[username] = user;
+      if (role === "tutor") {
+        alert(
+          "Đăng ký tài khoản gia sư thành công. Vui lòng làm bài kiểm tra để được kích hoạt."
+        );
+        currentQuizUser = username;
+        closeModal("register-modal");
+        openQuizForUser();
+      } else {
+        alert("Đăng ký tài khoản phụ huynh thành công. Bạn có thể đăng nhập ngay.");
+        closeModal("register-modal");
+        currentUser = user;
         updateAuthUI();
-        alert("Đăng ký thành công! Hãy hoàn thành bài kiểm tra năng lực để bắt đầu nhận lớp.");
-        showSection("test-section");
-      } else {
-        alert("Đăng ký thành công! Bây giờ bạn có thể đăng nhập.");
-        closeModal(registerModal);
-        openModal(loginModal);
+        showSection("create-post-section");
       }
     });
 
-    function tryLogin(username, password) {
-      username = (username || "").trim();
-      if (!username || !password) {
-        alert("Vui lòng nhập đầy đủ tên tài khoản và mật khẩu.");
-        return;
+    // ===== NAV =====
+    $$(".nav-link").forEach((btn) => {
+      btn.addEventListener("click", () => {
+        const id = btn.dataset.section;
+        showSection(id);
+      });
+    });
+
+    // hero buttons
+    $("#cta-find-class").addEventListener("click", () => {
+      if (!currentUser || currentUser.role !== "tutor") {
+        openModal("login-modal");
+        // chuyển tab gia sư
+        loginTabs.forEach((t) => {
+          const isTutor = t.dataset.loginTarget === "tutor";
+          t.classList.toggle("active", isTutor);
+        });
+        loginParentForm.classList.add("hidden");
+        loginTutorForm.classList.remove("hidden");
+      } else {
+        showSection("classes-section");
       }
-      const user = users.find(
-        (u) => u.username === username && u.password === password
-      );
-      if (!user) {
-        alert("Sai tên tài khoản hoặc mật khẩu.");
-        return;
-      }
-      currentUser = user;
-      saveCurrentUser(user);
-      closeModal(loginModal);
-      updateAuthUI();
-      if (currentUser.role === "gia-su" && !currentUser.tutorVerified) {
-        alert("Bạn cần hoàn thành bài kiểm tra năng lực trước khi nhận lớp.");
-        showSection("test-section");
-      } else if (currentUser.role === "gia-su") {
+    });
+
+    $("#cta-become-tutor").addEventListener("click", () => {
+      if (currentUser && currentUser.role === "tutor") {
         showSection("tutor-section");
-        document
-          .querySelectorAll(".nav-page-btn")
-          .forEach((b) => b.classList.remove("active"));
-        document
-          .querySelector('.nav-page-btn[data-target="tutor-section"]')
-          .classList.add("active");
-      }
-    }
-
-    document
-      .getElementById("login-student-submit")
-      .addEventListener("click", () => {
-        const u = document
-          .getElementById("login-student-username")
-          .value.trim();
-        const p = document.getElementById("login-student-password").value;
-        tryLogin(u, p);
-      });
-    document
-      .getElementById("login-tutor-submit")
-      .addEventListener("click", () => {
-        const u = document
-          .getElementById("login-tutor-username")
-          .value.trim();
-        const p = document.getElementById("login-tutor-password").value;
-        tryLogin(u, p);
-      });
-
-    /* ===== QUIZ QUESTIONS ===== */
-    const QUIZ_QUESTIONS = {
-      math: [
-        { q: "Giá trị của 2 + 3 × 4 là:", o: ["14", "20", "10", "18"], a: 0 },
-        { q: "Nghiệm của phương trình x + 5 = 9 là:", o: ["x = 3", "x = 4", "x = 2", "x = -4"], a: 1 },
-        { q: "Diện tích hình chữ nhật có chiều dài 5 và chiều rộng 3 là:", o: ["15", "8", "10", "30"], a: 0 },
-        { q: "Số nguyên tố nhỏ nhất lớn hơn 10 là:", o: ["11", "12", "13", "15"], a: 0 },
-        { q: "Giá trị của (3^2) + 4 là:", o: ["13", "7", "11", "9"], a: 0 },
-        { q: "Nếu một hình vuông có cạnh 4 thì chu vi là:", o: ["8", "12", "16", "20"], a: 2 },
-        { q: "Phần thập phân của 7/2 bằng:", o: ["3.5", "3.2", "3", "2.5"], a: 0 },
-        { q: "Trong tam giác vuông, định lý Pythagore dùng cho:", o: ["Độ dài cạnh", "Diện tích", "Chu vi", "Góc"], a: 0 },
-        { q: "Tập nghiệm của bất phương trình x > 2 là:", o: ["x ≥ 2", "x > 2", "x < 2", "x ≤ 2"], a: 1 },
-        { q: "Giá trị của 10% của 200 là:", o: ["10", "20", "30", "40"], a: 1 },
-      ],
-      physics: [
-        { q: "Đơn vị đo lực trong hệ SI là:", o: ["Niutơn (N)", "Jun (J)", "Oát (W)", "Mét (m)"], a: 0 },
-        { q: "Tốc độ ánh sáng xấp xỉ bằng:", o: ["3×10^8 m/s", "3×10^6 m/s", "3×10^5 m/s", "3×10^4 m/s"], a: 0 },
-        { q: "Thời gian chuyển động được tính bằng:", o: ["Quãng đường / Vận tốc", "Vận tốc × Quãng đường", "Khối lượng × Vận tốc", "Lực × Quãng đường"], a: 0 },
-        { q: "Vật nổi trên mặt nước khi:", o: ["Lực đẩy Ác-si-mét lớn hơn trọng lực", "Lực đẩy nhỏ hơn trọng lực", "Không có lực nào", "Hai lực cùng chiều"], a: 0 },
-        { q: "Sự truyền năng lượng nhờ dao động của các phần tử môi trường là:", o: ["Sóng cơ", "Ánh sáng", "Điện trường", "Từ trường"], a: 0 },
-        { q: "Hiệu điện thế ký hiệu là:", o: ["U", "I", "R", "P"], a: 0 },
-        { q: "Công suất điện P được tính bằng:", o: ["U·I", "U/I", "I/R", "U·R"], a: 0 },
-        { q: "Quán tính phụ thuộc vào:", o: ["Khối lượng", "Thể tích", "Nhiệt độ", "Diện tích"], a: 0 },
-        { q: "Chuyển động đều là chuyển động có:", o: ["Vận tốc không đổi", "Gia tốc không đổi", "Quãng đường bằng nhau trong thời gian bất kỳ", "Gia tốc bằng 0"], a: 0 },
-        { q: "Nhiệt độ đo bằng độ C (°C) có thể chuyển sang K bằng công thức:", o: ["K = C + 273", "K = C - 273", "K = 2C", "K = C/2"], a: 0 },
-      ],
-      chemistry: [
-        { q: "Nguyên tử số 1 trong bảng tuần hoàn là:", o: ["H", "He", "O", "C"], a: 0 },
-        { q: "Công thức hóa học của nước là:", o: ["H2O", "CO2", "NaCl", "HCl"], a: 0 },
-        { q: "Số proton trong hạt nhân oxy (O) là:", o: ["8", "16", "6", "12"], a: 0 },
-        { q: "Dung dịch có pH < 7 là:", o: ["Axit", "Bazơ", "Trung tính", "Muối"], a: 0 },
-        { q: "NaCl còn gọi là:", o: ["Muối ăn", "Vôi", "Axit", "Đường"], a: 0 },
-        { q: "Quá trình chuyển từ lỏng sang khí gọi là:", o: ["Bay hơi", "Ngưng tụ", "Thăng hoa", "Đông đặc"], a: 0 },
-        { q: "Hóa trị của Na trong hợp chất NaCl là:", o: ["I", "II", "III", "IV"], a: 0 },
-        { q: "Khí gây hiệu ứng nhà kính chính là:", o: ["CO2", "O2", "N2", "H2"], a: 0 },
-        { q: "Phản ứng cháy là phản ứng hoá học có sự tham gia của:", o: ["Oxi", "Nitơ", "Hiđro", "Clo"], a: 0 },
-        { q: "Dãy kim loại hoạt động mạnh giảm dần là:", o: ["K, Na, Ca, Mg, Al", "Na, K, Ca, Mg, Al", "Al, Mg, Ca, Na, K", "Na, Ca, Mg, Al, K"], a: 0 },
-      ],
-      literature: [
-        { q: "Thể thơ lục bát có số chữ ở câu lục và bát lần lượt là:", o: ["6 và 8", "5 và 7", "7 và 8", "4 và 6"], a: 0 },
-        { q: "Tác giả của Truyện Kiều là:", o: ["Nguyễn Du", "Nguyễn Trãi", "Hồ Xuân Hương", "Xuân Diệu"], a: 0 },
-        { q: "Nhân vật Lão Hạc xuất hiện trong tác phẩm của:", o: ["Nam Cao", "Ngô Tất Tố", "Nguyễn Công Hoan", "Nguyễn Minh Châu"], a: 0 },
-        { q: "“Lũy tre xanh” thường dùng để nói về:", o: ["Làng quê Việt Nam", "Rừng núi", "Thành phố", "Biển đảo"], a: 0 },
-        { q: "Phong cách ngôn ngữ dùng trong nghị luận xã hội là:", o: ["Nghị luận", "Tự sự", "Biểu cảm", "Thuyết minh"], a: 0 },
-        { q: "Từ láy trong tiếng Việt là:", o: ["Từ được tạo bởi sự lặp âm", "Từ chỉ hoạt động", "Từ chỉ sự vật", "Từ mượn"], a: 0 },
-        { q: "Trong thơ, hình ảnh trăng thường gợi đến:", o: ["Vẻ đẹp, sự bình yên", "Chiến tranh", "Ô nhiễm", "Thương mại"], a: 0 },
-        { q: "Điền từ thích hợp: “Công cha như núi Thái Sơn, nghĩa mẹ như…": o: ["nước trong nguồn chảy ra", "biển Thái Bình dạt dào", "sông dài", "trời cao"], a: 1 },
-        { q: "Văn bản thuyết minh chủ yếu nhằm:", o: ["Cung cấp thông tin, tri thức", "Bộc lộ cảm xúc", "Kể lại câu chuyện", "Tranh luận"], a: 0 },
-        { q: "Nhân vật 'chị Dậu' thuộc tác phẩm:", o: ["Tắt đèn", "Lão Hạc", "Vợ nhặt", "Sống mòn"], a: 0 },
-      ],
-      english: [
-        { q: "Chọn câu đúng: She ___ to school every day.", o: ["goes", "go", "going", "gone"], a: 0 },
-        { q: "Từ đồng nghĩa với 'happy' là:", o: ["glad", "sad", "angry", "tired"], a: 0 },
-        { q: "Điền giới từ: I am interested ___ math.", o: ["in", "on", "at", "for"], a: 0 },
-        { q: "Quá khứ đơn của 'buy' là:", o: ["bought", "buyed", "buys", "been"], a: 0 },
-        { q: "Câu hỏi: 'How old are you?' dùng để hỏi:", o: ["tuổi", "tên", "địa chỉ", "sở thích"], a: 0 },
-        { q: "Từ trái nghĩa với 'big' là:", o: ["small", "long", "tall", "high"], a: 0 },
-        { q: "Điền: There ___ two cats in the garden.", o: ["are", "is", "be", "am"], a: 0 },
-        { q: "Chọn giới từ: He is good ___ English.", o: ["at", "in", "on", "for"], a: 0 },
-        { q: "Dịch: 'library' nghĩa là:", o: ["thư viện", "phòng thí nghiệm", "nhà ăn", "sân vận động"], a: 0 },
-        { q: "Chọn câu đúng thì hiện tại tiếp diễn:", o: ["She is studying now.", "She study now.", "She studying now.", "She studies now."], a: 0 },
-      ],
-      biology: [
-        { q: "Đơn vị cấu tạo cơ bản của cơ thể sống là:", o: ["Tế bào", "Mô", "Cơ quan", "Hệ cơ quan"], a: 0 },
-        { q: "Quá trình cây xanh tạo ra chất hữu cơ gọi là:", o: ["Quang hợp", "Hô hấp", "Thoát hơi nước", "Vận chuyển"], a: 0 },
-        { q: "Cơ quan hô hấp chính của người là:", o: ["Phổi", "Tim", "Gan", "Thận"], a: 0 },
-        { q: "Máu đỏ tươi do kết hợp với:", o: ["Oxi", "CO2", "Nước", "Muối khoáng"], a: 0 },
-        { q: "Bộ phận nào của cây giúp hấp thụ nước và muối khoáng:", o: ["Rễ", "Thân", "Lá", "Hoa"], a: 0 },
-        { q: "Hệ thần kinh trung ương gồm:", o: ["Não và tủy sống", "Tim và phổi", "Gan và thận", "Dạ dày và ruột"], a: 0 },
-        { q: "Nhóm sinh vật nào sau đây là động vật có xương sống:", o: ["Cá", "Sứa", "Sâu bọ", "Sao biển"], a: 0 },
-        { q: "Quang hợp diễn ra chủ yếu ở bộ phận:", o: ["Lá", "Rễ", "Thân gỗ", "Hoa"], a: 0 },
-        { q: "ADN nằm chủ yếu ở:", o: ["Nhân tế bào", "Màng tế bào", "Tế bào chất", "Không bào"], a: 0 },
-        { q: "Sự phân bào tạo giao tử là:", o: ["Giảm phân", "Nguyên phân", "Hô hấp", "Quang hợp"], a: 0 },
-      ],
-      history: [
-        { q: "Nhà nước Văn Lang do vua nào đứng đầu?", o: ["Hùng Vương", "An Dương Vương", "Lý Thái Tổ", "Quang Trung"], a: 0 },
-        { q: "Chiến thắng Bạch Đằng năm 938 gắn với nhân vật:", o: ["Ngô Quyền", "Lý Thường Kiệt", "Trần Hưng Đạo", "Lê Lợi"], a: 0 },
-        { q: "Cuộc kháng chiến chống quân Mông - Nguyên lần thứ 3 do ai lãnh đạo?", o: ["Trần Hưng Đạo", "Ngô Quyền", "Lý Thường Kiệt", "Quang Trung"], a: 0 },
-        { q: "Cách mạng tháng Tám ở Việt Nam diễn ra năm:", o: ["1945", "1930", "1954", "1975"], a: 0 },
-        { q: "Hiệp định Giơ-ne-vơ về chấm dứt chiến tranh ở Đông Dương được ký năm:", o: ["1954", "1945", "1968", "1973"], a: 0 },
-        { q: "Chiến thắng Điện Biên Phủ diễn ra năm:", o: ["1954", "1946", "1975", "1968"], a: 0 },
-        { q: "Ngày Quốc khánh nước CHXHCN Việt Nam là:", o: ["2/9/1945", "30/4/1975", "3/2/1930", "19/5/1890"], a: 0 },
-        { q: "Phong trào 'Đồng khởi' bùng nổ mạnh mẽ năm:", o: ["1960", "1954", "1945", "1975"], a: 0 },
-        { q: "Nhân vật gắn với khẩu hiệu 'Không có gì quý hơn độc lập, tự do' là:", o: ["Hồ Chí Minh", "Trường Chinh", "Võ Nguyên Giáp", "Phạm Văn Đồng"], a: 0 },
-        { q: "Thắng lợi mùa Xuân 1975 kết thúc bằng chiến dịch:", o: ["Hồ Chí Minh", "Điện Biên Phủ", "Biên giới", "Đường 9 Nam Lào"], a: 0 },
-      ],
-      geography: [
-        { q: "Trái Đất quay quanh Mặt Trời theo quỹ đạo:", o: ["Hình elip", "Hình tròn", "Hình vuông", "Hình chữ nhật"], a: 0 },
-        { q: "Đường xích đạo có vĩ độ:", o: ["0°", "90° Bắc", "90° Nam", "45°"], a: 0 },
-        { q: "Biển Đông là một bộ phận của:", o: ["Thái Bình Dương", "Ấn Độ Dương", "Đại Tây Dương", "Bắc Băng Dương"], a: 0 },
-        { q: "Việt Nam không giáp quốc gia nào sau đây:", o: ["Ấn Độ", "Trung Quốc", "Lào", "Campuchia"], a: 0 },
-        { q: "Sông dài nhất Việt Nam là:", o: ["Sông Hồng", "Sông Mekong (Cửu Long)", "Sông Đà", "Sông Thu Bồn"], a: 1 },
-        { q: "Khí hậu Việt Nam chủ yếu là:", o: ["Nhiệt đới gió mùa", "Ôn đới", "Hàn đới", "Cận cực"], a: 0 },
-        { q: "Thủ đô của Việt Nam là:", o: ["Hà Nội", "TP. Hồ Chí Minh", "Đà Nẵng", "Huế"], a: 0 },
-        { q: "Vùng đồng bằng lớn nhất nước ta là:", o: ["Đồng bằng sông Cửu Long", "Đồng bằng sông Hồng", "Đồng bằng duyên hải", "Tây Nguyên"], a: 0 },
-        { q: "Khoáng sản than đá tập trung nhiều ở:", o: ["Quảng Ninh", "Đồng Nai", "An Giang", "Gia Lai"], a: 0 },
-        { q: "Biển nào sau đây nằm phía Đông Việt Nam:", o: ["Biển Đông", "Biển Đen", "Biển Đỏ", "Biển Caspi"], a: 0 },
-      ],
-    };
-
-    /* ===== RENDER :::::::: */
-
-    function getRequestStatusForTutor(classId, tutorUsername) {
-      const req = requests.find(
-        (r) => r.classId === classId && r.tutor === tutorUsername
-      );
-      return req ? req.status : null;
-    }
-
-    function renderClassesList() {
-      const container = document.getElementById("classes-list");
-      if (!container) return;
-      let html = "";
-      classes.forEach((c) => {
-        const title = c.parentName;
-        const subtitle = `Cần gia sư môn ${c.subject} · ${c.gradeText}`;
-        let actionHtml = "";
-        let phone = c.phone || "0123456XXX";
-
-        if (currentUser && currentUser.role === "gia-su") {
-          if (!currentUser.tutorVerified) {
-            actionHtml = `
-              <button class="btn btn-primary btn-need-test">
-                Làm bài kiểm tra để nhận lớp
-              </button>
-            `;
-          } else {
-            const status = getRequestStatusForTutor(c.id, currentUser.username);
-            if (!status) {
-              actionHtml = `
-                <button class="btn btn-primary btn-request" data-class-id="${c.id}">
-                  ĐĂNG KÍ NHẬN LỚP
-                </button>
-              `;
-            } else if (status === "pending") {
-              actionHtml = `<span class="status-pill status-wait">Vui lòng chờ phụ huynh xác nhận</span>`;
-            } else if (status === "accepted") {
-              actionHtml = `<span class="status-pill status-accepted">Bạn đã được chọn · Chờ thanh toán phí nhận lớp</span>`;
-            } else if (status === "rejected") {
-              actionHtml = `<span class="status-pill status-rejected">Rất tiếc, đã có người khác được chọn</span>`;
-            } else if (status === "paid") {
-              actionHtml = `<span class="status-pill status-connected">Kết nối lớp thành công</span>`;
-            }
-          }
-        } else {
-          actionHtml =
-            '<span class="muted" style="font-size:12px;">Đăng nhập vai trò Gia sư để đăng kí lớp</span>';
-        }
-
-        html += `
-          <div class="class-card">
-            <div class="class-top-row">
-              <div class="avatar-circle">${title[0]}</div>
-              <div class="class-main">
-                <div class="class-name">${title}</div>
-                <div class="class-subtitle">${subtitle}</div>
-
-                <div class="class-info-grid">
-                  <div class="info-item">
-                    <span class="info-icon">📍</span>
-                    <span>${c.address}</span>
-                  </div>
-                  <div class="info-item">
-                    <span class="info-icon">⏰</span>
-                    <span>Thời gian học: ${c.schedule}</span>
-                  </div>
-                  <div class="info-item">
-                    <span class="info-icon">💰</span>
-                    <span>Mức lương dự kiến: ${c.fee}</span>
-                  </div>
-                  <div class="info-item">
-                    <span class="info-icon">🎓</span>
-                    <span>Yêu cầu bằng cấp: ${c.degreeReq}</span>
-                  </div>
-                  <div class="info-item">
-                    <span class="info-icon">👥</span>
-                    <span>Yêu cầu giới tính gia sư: ${c.genderReq}</span>
-                  </div>
-                  <div class="info-item">
-                    <span class="info-icon">📚</span>
-                    <span>Mục tiêu học tập: ${c.goal}</span>
-                  </div>
-                </div>
-              </div>
-            </div>
-            <div class="class-bottom-row">
-              <span class="phone-link">${phone}</span>
-              <div class="class-actions">${actionHtml}</div>
-            </div>
-          </div>
-        `;
-      });
-      container.innerHTML = html;
-
-      container.querySelectorAll(".btn-request").forEach((btn) => {
-        btn.addEventListener("click", () => {
-          if (!currentUser || currentUser.role !== "gia-su") {
-            alert("Vui lòng đăng nhập với vai trò Gia sư.");
-            return;
-          }
-          if (!currentUser.tutorVerified) {
-            alert("Bạn cần hoàn thành bài kiểm tra năng lực trước khi nhận lớp.");
-            showSection("test-section");
-            return;
-          }
-          const classId = Number(btn.getAttribute("data-class-id"));
-          if (
-            requests.some(
-              (r) => r.classId === classId && r.tutor === currentUser.username
-            )
-          ) {
-            alert("Bạn đã đăng kí lớp này rồi.");
-            return;
-          }
-          requests.push({
-            classId,
-            tutor: currentUser.username,
-            status: "pending",
-          });
-          saveRequests(requests);
-          renderAll();
-          alert("Đã gửi yêu cầu nhận lớp. Vui lòng chờ phụ huynh chấp nhận.");
-        });
-      });
-
-      container.querySelectorAll(".btn-need-test").forEach((btn) => {
-        btn.addEventListener("click", () => {
-          alert("Bạn cần hoàn thành bài kiểm tra năng lực (đạt từ 8/10) để nhận lớp.");
-          showSection("test-section");
-        });
-      });
-    }
-
-    function renderTutorSection() {
-      const container = document.getElementById("tutor-section-content");
-      if (!container) return;
-
-      if (!currentUser || currentUser.role !== "gia-su") {
-        container.innerHTML =
-          '<p class="muted">Vui lòng đăng nhập với vai trò <b>Gia sư</b> để xem thông tin.</p>';
-        return;
-      }
-
-      const fullName =
-        ((currentUser.lastName || "") + " " + (currentUser.firstName || "")).trim() ||
-        currentUser.username;
-
-      const phone = currentUser.phone || "Chưa cập nhật";
-      const email = currentUser.email || "Chưa cập nhật";
-      const edu = currentUser.edu || "Tốt nghiệp Đại học Sư phạm";
-      const subject = currentUser.subject || "Toán";
-      const exp = currentUser.exp || "2 năm làm gia sư";
-      const gender = currentUser.gender || "Nam/Nữ";
-      const achievements = currentUser.achievements || "Chưa cập nhật";
-
-      const tutorRequests = requests.filter(
-        (r) => r.tutor === currentUser.username
-      );
-
-      const tutorRatings = ratings.filter(
-        (rt) => rt.tutor === currentUser.username
-      );
-      let ratingText = "Chưa có đánh giá";
-      if (tutorRatings.length > 0) {
-        const avg =
-          tutorRatings.reduce((sum, r) => sum + (r.stars || 0), 0) /
-          tutorRatings.length;
-        ratingText =
-          avg.toFixed(1) + ` / 5 (${tutorRatings.length} đánh giá)`;
-      }
-
-      let classesHtml = "";
-      tutorRequests.forEach((req) => {
-        const c = classes.find((cl) => cl.id === req.classId);
-        if (!c) return;
-        const subtitle = `Cần gia sư môn ${c.subject} · ${c.gradeText}`;
-        let statusClass = "status-wait";
-        let statusText = "Vui lòng chờ phụ huynh xác nhận";
-        let extraActions = "";
-
-        if (req.status === "accepted") {
-          statusClass = "status-accepted";
-          statusText = "Bạn đã được phụ huynh chọn. Vui lòng thanh toán phí nhận lớp.";
-          extraActions = `
-            <button type="button" class="btn btn-primary btn-xs"
-              data-pay-class="${c.id}" data-pay-tutor="${currentUser.username}">
-              Thanh toán phí nhận lớp
-            </button>
-          `;
-        } else if (req.status === "rejected") {
-          statusClass = "status-rejected";
-          statusText = "Rất tiếc, đã có người khác được chọn";
-        } else if (req.status === "paid") {
-          statusClass = "status-connected";
-          statusText = "Kết nối lớp thành công 🎉";
-        }
-
-        classesHtml += `
-          <div class="class-card">
-            <div class="class-top-row">
-              <div class="avatar-circle">${c.parentName[0]}</div>
-              <div class="class-main">
-                <div class="class-name">${c.parentName}</div>
-                <div class="class-subtitle">${subtitle}</div>
-                <div class="class-info-grid">
-                  <div class="info-item"><span class="info-icon">📍</span><span>${c.address}</span></div>
-                  <div class="info-item"><span class="info-icon">⏰</span><span>Thời gian học: ${c.schedule}</span></div>
-                  <div class="info-item"><span class="info-icon">💰</span><span>Mức lương dự kiến: ${c.fee}</span></div>
-                  <div class="info-item"><span class="info-icon">🎓</span><span>Yêu cầu bằng cấp: ${c.degreeReq}</span></div>
-                  <div class="info-item"><span class="info-icon">👥</span><span>Giới tính gia sư: ${c.genderReq}</span></div>
-                  <div class="info-item"><span class="info-icon">📚</span><span>Mục tiêu học tập: ${c.goal}</span></div>
-                </div>
-              </div>
-            </div>
-            <div class="class-bottom-row">
-              <span class="phone-link">${c.phone || "0123456XXX"}</span>
-              <div class="class-actions">
-                <span class="status-pill ${statusClass}">${statusText}</span>
-                ${extraActions}
-              </div>
-            </div>
-          </div>
-        `;
-      });
-
-      if (!classesHtml) {
-        classesHtml =
-          '<p class="muted">Bạn chưa đăng kí lớp nào. Hãy vào "Danh sách lớp" để đăng kí sau khi đã vượt qua bài kiểm tra năng lực.</p>';
-      }
-
-      let verifyBanner = "";
-      if (!currentUser.tutorVerified) {
-        verifyBanner = `
-          <div style="margin-bottom:14px; padding:10px 12px; border-radius:10px; background:var(--status-wait-bg); color:var(--status-wait-text); font-size:13px;">
-            ⏳ Tài khoản gia sư của bạn <b>chưa được xác thực</b>. Hãy hoàn thành bài kiểm tra năng lực (đạt từ 8/10 câu đúng) để bắt đầu nhận lớp.
-            <button class="btn btn-primary btn-xs" id="btn-go-test" style="margin-left:6px;">Làm bài kiểm tra</button>
-          </div>
-        `;
-      }
-
-      let ratingListHtml = "";
-      if (tutorRatings.length > 0) {
-        ratingListHtml =
-          '<div class="rating-list"><strong>Nhận xét từ phụ huynh:</strong>';
-        tutorRatings.forEach((rt) => {
-          ratingListHtml += `
-            <div class="rating-item">
-              ⭐ ${rt.stars}/5 · <i>${rt.parentName || "Phụ huynh ẩn danh"}</i><br/>
-              ${rt.comment || ""}
-            </div>
-          `;
-        });
-        ratingListHtml += "</div>";
-      }
-
-      container.innerHTML = `
-        ${verifyBanner}
-        <div class="profile-card">
-          <div class="profile-avatar" id="profile-avatar">
-            <img src="https://images.pexels.com/photos/1181398/pexels-photo-1181398.jpeg?auto=compress&cs=tinysrgb&w=400" alt="Tutor" />
-          </div>
-          <div style="flex:1">
-            <div class="profile-header">
-              <div class="profile-name" id="profile-name">${fullName}</div>
-              <button class="btn btn-outline" id="open-edit-profile">⚙ Chỉnh sửa thông tin</button>
-            </div>
-            <div class="profile-main">
-              <div><strong>Họ và tên:</strong> <span id="profile-fullname">${fullName}</span></div>
-              <div><strong>Giới tính:</strong> <span id="profile-gender">${gender}</span></div>
-              <div><strong>Số điện thoại:</strong> <span id="profile-phone">${phone}</span></div>
-              <div><strong>Email:</strong> <span id="profile-email">${email}</span></div>
-              <div><strong>Học vấn:</strong> <span id="profile-edu">${edu}</span></div>
-              <div><strong>Môn dạy:</strong> <span id="profile-subject">${subject}</span></div>
-              <div><strong>Kinh nghiệm:</strong> <span id="profile-exp">${exp}</span></div>
-              <div style="grid-column:1 / -1;"><strong>Thành tích:</strong> <span id="profile-achievements">${achievements}</span></div>
-            </div>
-            <span class="rating-badge">Đánh giá: ${ratingText}</span>
-            ${ratingListHtml}
-          </div>
-        </div>
-
-        <h2 class="page-title" style="margin-top:10px;">CÁC LỚP GIA SƯ ĐÃ ĐĂNG KÍ</h2>
-        ${classesHtml}
-      `;
-
-      const editBtn = document.getElementById("open-edit-profile");
-      if (editBtn) {
-        editBtn.addEventListener("click", () => {
-          document.getElementById("edit-lastname").value =
-            currentUser.lastName || "";
-          document.getElementById("edit-firstname").value =
-            currentUser.firstName || "";
-          document.getElementById("edit-phone").value =
-            currentUser.phone || "";
-          document.getElementById("edit-email").value =
-            currentUser.email || "";
-          document.getElementById("edit-edu").value = currentUser.edu || "";
-          document.getElementById("edit-exp").value = currentUser.exp || "";
-          document.getElementById("edit-subject").value =
-            currentUser.subject || "";
-          document.getElementById("edit-gender").value =
-            currentUser.gender || "Nam";
-          document.getElementById("edit-achievements").value =
-            currentUser.achievements || "";
-          openModal(editProfileModal);
-        });
-      }
-
-      const goTestBtn = document.getElementById("btn-go-test");
-      if (goTestBtn) {
-        goTestBtn.addEventListener("click", () => {
-          showSection("test-section");
-        });
-      }
-
-      // nút thanh toán phí nhận lớp (tutor side)
-      container.querySelectorAll("[data-pay-class]").forEach((btn) => {
-        btn.addEventListener("click", () => {
-          const classId = Number(btn.getAttribute("data-pay-class"));
-          const tutorUsername = btn.getAttribute("data-pay-tutor");
-          const cls = classes.find((c) => c.id === classId);
-          paymentTarget = { classId, tutor: tutorUsername };
-          const feeTextEl = document.getElementById("payment-fee-text");
-          if (feeTextEl && cls) {
-            const feeInfo = computeCommissionText(cls.fee);
-            feeTextEl.textContent =
-              "Phí nhận lớp: 25% lương tháng đầu tiên = " + feeInfo;
-          }
-          openModal(paymentModal);
-        });
-      });
-    }
-
-    let paymentTarget = null; // {classId, tutor}
-
-    function renderParentPosts() {
-      const container = document.getElementById("parent-posts-content");
-      if (!container) return;
-
-      if (!currentUser || currentUser.role !== "phu-huynh") {
-        container.innerHTML =
-          '<p class="muted">Vui lòng đăng nhập với vai trò <b>Phụ huynh</b> để xem các bài đăng.</p>';
-        return;
-      }
-
-      const myClasses = classes.filter(
-        (c) => c.parentUsername === currentUser.username
-      );
-      if (myClasses.length === 0) {
-        container.innerHTML =
-          '<p class="muted">Bạn chưa có bài đăng nào. Hãy vào "Đăng bài tìm gia sư" để tạo bài mới.</p>';
-        return;
-      }
-
-      let html = "";
-      myClasses.forEach((c) => {
-        const subtitle = `Cần gia sư môn ${c.subject} · ${c.gradeText}`;
-        const classReqs = requests.filter((r) => r.classId === c.id);
-        const paidReq = classReqs.find((r) => r.status === "paid");
-        const acceptedReq = classReqs.find((r) => r.status === "accepted");
-
-        const applicantsCount = classReqs.length;
-        let applicantsHtml = "";
-        if (classReqs.length > 0) {
-          applicantsHtml = `<div class="applicants-list hidden" data-applicants-for="${c.id}">`;
-          classReqs.forEach((req) => {
-            const tutor = users.find((u) => u.username === req.tutor);
-            const tutorName =
-              ((tutor?.lastName || "") + " " + (tutor?.firstName || "")).trim() ||
-              req.tutor;
-            const firstChar = tutorName[0] || "?";
-            const isAccepted = req.status === "accepted";
-            const isPaid = req.status === "paid";
-            const rowClass = isPaid
-              ? "applicant-row applicant-accepted"
-              : isAccepted
-              ? "applicant-row applicant-accepted"
-              : "applicant-row";
-            let statusText = "";
-            if (req.status === "pending") statusText = " (Đang chờ)";
-            else if (req.status === "accepted")
-              statusText = " (Đã chấp nhận - chờ gia sư thanh toán)";
-            else if (req.status === "rejected") statusText = " (Đã từ chối)";
-            else if (req.status === "paid")
-              statusText = " (Gia sư đã thanh toán - kết nối thành công)";
-
-            let actionsHtml = "";
-            if (isPaid) {
-              actionsHtml = `<span class="status-pill status-connected">Đã thanh toán</span>`;
-            } else if (isAccepted) {
-              actionsHtml = `
-                <button type="button" class="btn btn-outline btn-xs"
-                  data-reject-class="${c.id}" data-reject-tutor="${req.tutor}">
-                  Từ chối
-                </button>
-              `;
-            } else if (req.status === "pending") {
-              actionsHtml = `
-                <button type="button" class="btn btn-primary btn-xs"
-                  data-accept-class="${c.id}" data-accept-tutor="${req.tutor}">
-                  Chấp nhận
-                </button>
-                <button type="button" class="btn btn-outline btn-xs"
-                  data-reject-class="${c.id}" data-reject-tutor="${req.tutor}">
-                  Từ chối
-                </button>
-              `;
-            } else if (req.status === "rejected") {
-              actionsHtml = `<span class="status-pill status-rejected">Đã từ chối</span>`;
-            }
-
-            applicantsHtml += `
-              <div class="${rowClass}">
-                <div class="applicant-left">
-                  <div class="applicant-avatar">${firstChar}</div>
-                  <div>${tutorName}${statusText}</div>
-                </div>
-                <div style="display:flex; gap:6px; align-items:center; flex-wrap:wrap;">
-                  <button type="button" class="btn btn-outline btn-xs"
-                    data-view-tutor="${tutor?.username || req.tutor}">
-                    Xem thông tin
-                  </button>
-                  ${actionsHtml}
-                </div>
-              </div>
-            `;
-          });
-          applicantsHtml += `</div>`;
-        }
-
-        let footerInfo = "";
-        let ratingBlock = "";
-        if (paidReq) {
-          const tutor = users.find((u) => u.username === paidReq.tutor);
-          const name =
-            ((tutor?.lastName || "") + " " + (tutor?.firstName || "")).trim() ||
-            paidReq.tutor;
-          footerInfo = `
-            <div style="margin-top:10px; padding:8px 12px; border-radius:8px; background:var(--status-green-bg); color:var(--status-green-text); font-size:13px;">
-              ✅ Lớp đã được kết nối thành công với gia sư: <b>${name}</b>.
-            </div>
-          `;
-          const existingRating = ratings.find(
-            (rt) => rt.classId === c.id && rt.tutor === paidReq.tutor
-          );
-          if (!existingRating) {
-            ratingBlock = `
-              <div style="margin-top:8px; padding:8px 12px; border-radius:8px; background:#edf2ff; font-size:13px;">
-                <div style="margin-bottom:4px;"><b>Đánh giá gia sư</b> (1–5 sao):</div>
-                <div style="display:flex; gap:6px; flex-wrap:wrap; align-items:center; margin-bottom:4px;">
-                  <label style="font-size:13px;">Số sao:</label>
-                  <select class="select rating-stars" data-rating-class="${c.id}" data-rating-tutor="${paidReq.tutor}" style="width:auto; padding:4px 8px; font-size:13px;">
-                    <option value="5">5 ⭐ - Rất tốt</option>
-                    <option value="4">4 ⭐ - Tốt</option>
-                    <option value="3">3 ⭐ - Khá</option>
-                    <option value="2">2 ⭐ - Trung bình</option>
-                    <option value="1">1 ⭐ - Chưa tốt</option>
-                  </select>
-                </div>
-                <textarea class="input rating-comment" data-rating-class="${c.id}" data-rating-tutor="${paidReq.tutor}" rows="2"
-                  placeholder="Nhận xét về gia sư..." style="border-radius:10px;"></textarea>
-                <button type="button" class="btn btn-primary btn-xs rating-submit"
-                  data-rating-class="${c.id}" data-rating-tutor="${paidReq.tutor}" style="margin-top:6px;">
-                  Gửi đánh giá
-                </button>
-              </div>
-            `;
-          } else {
-            ratingBlock = `
-              <div style="margin-top:8px; padding:8px 12px; border-radius:8px; background:#edf2ff; font-size:13px;">
-                <b>Bạn đã đánh giá gia sư:</b> ⭐ ${existingRating.stars}/5<br/>
-                ${existingRating.comment || ""}
-              </div>
-            `;
-          }
-        } else if (acceptedReq) {
-          const tutor = users.find((u) => u.username === acceptedReq.tutor);
-          const name =
-            ((tutor?.lastName || "") + " " + (tutor?.firstName || "")).trim() ||
-            acceptedReq.tutor;
-          footerInfo = `
-            <div style="margin-top:10px; padding:8px 12px; border-radius:8px; background:var(--status-wait-bg); color:var(--status-wait-text); font-size:13px;">
-              ⏳ Bạn đã chọn gia sư <b>${name}</b>. Đang chờ gia sư thanh toán phí nhận lớp để hoàn tất kết nối.
-            </div>
-          `;
-        }
-
-        html += `
-          <div class="class-card">
-            <div class="class-top-row">
-              <div class="avatar-circle">${c.parentName[0]}</div>
-              <div class="class-main">
-                <div class="class-name">${c.parentName}</div>
-                <div class="class-subtitle">${subtitle}</div>
-
-                <div class="class-info-grid">
-                  <div class="info-item">
-                    <span class="info-icon">📍</span>
-                    <span>${c.address}</span>
-                  </div>
-                  <div class="info-item">
-                    <span class="info-icon">⏰</span>
-                    <span>Thời gian học: ${c.schedule}</span>
-                  </div>
-                  <div class="info-item">
-                    <span class="info-icon">💰</span>
-                    <span>Mức lương dự kiến: ${c.fee}</span>
-                  </div>
-                  <div class="info-item">
-                    <span class="info-icon">🎓</span>
-                    <span>Yêu cầu bằng cấp: ${c.degreeReq}</span>
-                  </div>
-                  <div class="info-item">
-                    <span class="info-icon">👥</span>
-                    <span>Yêu cầu giới tính gia sư: ${c.genderReq}</span>
-                  </div>
-                  <div class="info-item">
-                    <span class="info-icon">📚</span>
-                    <span>Mục tiêu học tập: ${c.goal}</span>
-                  </div>
-                </div>
-              </div>
-            </div>
-            <div class="class-bottom-row">
-              <span class="phone-link">${c.phone || "0123456789"}</span>
-              <span class="applicants-toggle" data-toggle-applicants="${c.id}">
-                👥 Xem gia sư ứng tuyển (${applicantsCount})
-              </span>
-            </div>
-            ${applicantsHtml}
-            ${footerInfo}
-            ${ratingBlock}
-          </div>
-        `;
-      });
-
-      container.innerHTML = html;
-
-      // toggle applicants
-      container.querySelectorAll("[data-toggle-applicants]").forEach((btn) => {
-        btn.addEventListener("click", () => {
-          const id = Number(btn.getAttribute("data-toggle-applicants"));
-          const list = container.querySelector(
-            `.applicants-list[data-applicants-for="${id}"]`
-          );
-          if (list) list.classList.toggle("hidden");
-        });
-      });
-
-      // accept tutor
-      container.querySelectorAll("[data-accept-class]").forEach((btn) => {
-        btn.addEventListener("click", () => {
-          const classId = Number(btn.getAttribute("data-accept-class"));
-          const tutorUsername = btn.getAttribute("data-accept-tutor");
-          requests.forEach((r) => {
-            if (r.classId === classId) {
-              // chỉ một người được accepted, còn lại rejected
-              r.status = r.tutor === tutorUsername ? "accepted" : "rejected";
-            }
-          });
-          saveRequests(requests);
-          alert("Đã chấp nhận gia sư. Đang chờ gia sư thanh toán phí nhận lớp.");
-          renderAll();
-        });
-      });
-
-      // reject tutor
-      container.querySelectorAll("[data-reject-class]").forEach((btn) => {
-        btn.addEventListener("click", () => {
-          const classId = Number(btn.getAttribute("data-reject-class"));
-          const tutorUsername = btn.getAttribute("data-reject-tutor");
-          requests.forEach((r) => {
-            if (r.classId === classId && r.tutor === tutorUsername) {
-              r.status = "rejected";
-            }
-          });
-          saveRequests(requests);
-          alert("Đã từ chối gia sư.");
-          renderAll();
-        });
-      });
-
-      // view tutor info
-      container.querySelectorAll("[data-view-tutor]").forEach((btn) => {
-        btn.addEventListener("click", () => {
-          const uname = btn.getAttribute("data-view-tutor");
-          const tutor = users.find((u) => u.username === uname);
-          if (!tutor) {
-            alert("Không tìm thấy thông tin gia sư.");
-            return;
-          }
-          const fullName =
-            ((tutor.lastName || "") + " " + (tutor.firstName || "")).trim() ||
-            tutor.username;
-          alert(
-            `Gia sư: ${fullName}\nEmail: ${tutor.email || "Chưa cập nhật"}\nSĐT: ${
-              tutor.phone || "Chưa cập nhật"
-            }`
-          );
-        });
-      });
-
-      // rating submit
-      container.querySelectorAll(".rating-submit").forEach((btn) => {
-        btn.addEventListener("click", () => {
-          const classId = Number(btn.getAttribute("data-rating-class"));
-          const tutorUsername = btn.getAttribute("data-rating-tutor");
-          const selectEl = container.querySelector(
-            `select.rating-stars[data-rating-class="${classId}"][data-rating-tutor="${tutorUsername}"]`
-          );
-          const commentEl = container.querySelector(
-            `textarea.rating-comment[data-rating-class="${classId}"][data-rating-tutor="${tutorUsername}"]`
-          );
-          if (!selectEl || !commentEl) return;
-          const stars = Number(selectEl.value || "5");
-          const comment = commentEl.value.trim();
-          if (ratings.find((rt) => rt.classId === classId && rt.tutor === tutorUsername)) {
-            alert("Bạn đã đánh giá gia sư cho lớp này rồi.");
-            return;
-          }
-          ratings.push({
-            classId,
-            tutor: tutorUsername,
-            stars,
-            comment,
-            parentName:
-              ((currentUser.lastName || "") + " " + (currentUser.firstName || "")).trim() ||
-              currentUser.username,
-          });
-          saveRatings(ratings);
-          alert("Cảm ơn bạn đã đánh giá gia sư!");
-          renderAll();
-        });
-      });
-    }
-
-    function renderCreatePostSection() {
-      const container = document.getElementById("create-post-content");
-      if (!container) return;
-      if (!currentUser || currentUser.role !== "phu-huynh") {
-        container.innerHTML =
-          '<p class="muted">Vui lòng đăng nhập với vai trò <b>Phụ huynh</b> để đăng bài.</p>';
-        return;
-      }
-
-      container.innerHTML = `
-        <div class="card-form">
-          <div class="section-title" style="font-size:22px; margin-bottom:16px;">ĐĂNG BÀI TÌM GIA SƯ</div>
-          <div class="form-group form-grid-2">
-            <div>
-              <label>Môn học gia sư *</label>
-              <input id="post-subject" class="input" placeholder="Ví dụ: Toán, Lý, Anh..." />
-            </div>
-            <div>
-              <label>Thông tin học sinh *</label>
-              <input id="post-grade" class="input" placeholder="Ví dụ: Học sinh lớp 8" />
-            </div>
-          </div>
-          <div class="form-group">
-            <label>Địa chỉ học *</label>
-            <input id="post-address" class="input" />
-          </div>
-          <div class="form-group form-grid-2">
-            <div>
-              <label>Thời gian học *</label>
-              <input id="post-schedule" class="input" placeholder="Ví dụ: Thứ hai 2PM - 4PM" />
-            </div>
-            <div>
-              <label>Mức lương tháng đầu tiên *</label>
-              <input id="post-fee" class="input" placeholder="Ví dụ: 2.000.000 VND" />
-            </div>
-          </div>
-          <div class="form-group form-grid-2">
-            <div>
-              <label>Yêu cầu giới tính gia sư</label>
-              <input id="post-gender" class="input" placeholder="Không yêu cầu / Nam / Nữ..." />
-            </div>
-            <div>
-              <label>Yêu cầu trình độ/kinh nghiệm</label>
-              <input id="post-degree" class="input" placeholder="Ví dụ: Tốt nghiệp ĐH Sư phạm" />
-            </div>
-          </div>
-          <div class="form-group">
-            <label>Số điện thoại liên hệ *</label>
-            <input id="post-phone" class="input" />
-          </div>
-          <div class="form-group">
-            <label>Mục tiêu học tập</label>
-            <input id="post-goal" class="input" placeholder="Ví dụ: Cải thiện điểm, ôn thi..." />
-          </div>
-          <button id="post-submit" class="btn btn-primary" style="width:100%; margin-top:10px;">
-            ➤ ĐĂNG BÀI NGAY
-          </button>
-        </div>
-      `;
-      document.getElementById("post-submit").addEventListener("click", () => {
-        const subject = document.getElementById("post-subject").value.trim();
-        const gradeText = document.getElementById("post-grade").value.trim();
-        const address = document.getElementById("post-address").value.trim();
-        const schedule = document.getElementById("post-schedule").value.trim();
-        const fee = document.getElementById("post-fee").value.trim();
-        const genderReq = document.getElementById("post-gender").value.trim() || "Không yêu cầu";
-        const degreeReq = document.getElementById("post-degree").value.trim() || "Không yêu cầu";
-        const phone = document.getElementById("post-phone").value.trim();
-        const goal = document.getElementById("post-goal").value.trim() || "Cải thiện điểm";
-
-        if (!subject || !gradeText || !address || !schedule || !fee || !phone) {
-          alert("Vui lòng điền đầy đủ các trường bắt buộc.");
-          return;
-        }
-
-        const newId =
-          classes.reduce((max, c) => Math.max(max, c.id), 0) + 1;
-
-        const parentName =
-          ((currentUser.lastName || "") + " " + (currentUser.firstName || "")).trim() ||
-          currentUser.username;
-
-        const newClass = {
-          id: newId,
-          parentUsername: currentUser.username,
-          parentName,
-          subject,
-          gradeText,
-          address,
-          schedule,
-          fee,
-          degreeReq,
-          genderReq,
-          goal,
-          phone,
-        };
-
-        classes.push(newClass);
-        saveClasses(classes);
-        alert("Đăng bài thành công!");
-        renderAll();
-        showSection("parent-posts-section");
-        document
-          .querySelectorAll(".nav-page-btn")
-          .forEach((b) => b.classList.remove("active"));
-        document
-          .querySelector('.nav-page-btn[data-target="parent-posts-section"]')
-          .classList.add("active");
-      });
-    }
-
-    /* ===== PAYMENT FEE CALC ===== */
-    function computeCommissionText(feeStr) {
-      if (!feeStr) return "Không xác định";
-      const match = feeStr.match(/[\d.,]+/);
-      if (!match) return "Không xác định từ: " + feeStr;
-      let numStr = match[0].replace(/\./g, "").replace(/,/g, ".");
-      const base = parseFloat(numStr);
-      if (isNaN(base)) return "Không xác định từ: " + feeStr;
-      const commission = base * 0.25;
-      let formatted;
-      if (base >= 1000) {
-        formatted = commission.toLocaleString("vi-VN");
       } else {
-        formatted = commission.toFixed(2);
+        openModal("register-modal");
+        $("#reg-role").value = "tutor";
       }
-      const suffix = feeStr.replace(match[0], "").trim();
-      return formatted + (suffix ? " " + suffix : "");
-    }
-
-    /* PAYMENT CONFIRM */
-    document.getElementById("payment-confirm").addEventListener("click", () => {
-      if (!paymentTarget) {
-        closeModal(paymentModal);
-        return;
-      }
-      const { classId, tutor } = paymentTarget;
-      requests.forEach((r) => {
-        if (r.classId === classId) {
-          if (r.tutor === tutor) r.status = "paid";
-          else if (r.status === "accepted") r.status = "rejected";
-        }
-      });
-      saveRequests(requests);
-      paymentTarget = null;
-      closeModal(paymentModal);
-      alert("Thanh toán thành công! Kết nối lớp đã hoàn tất.");
-      renderAll();
     });
 
-    /* EDIT PROFILE SAVE */
-    document.getElementById("edit-profile-save").addEventListener("click", () => {
-      if (!currentUser) return;
-      currentUser.lastName = document.getElementById("edit-lastname").value.trim();
-      currentUser.firstName = document.getElementById("edit-firstname").value.trim();
-      currentUser.phone = document.getElementById("edit-phone").value.trim();
-      currentUser.email = document.getElementById("edit-email").value.trim();
-      currentUser.edu = document.getElementById("edit-edu").value.trim();
-      currentUser.exp = document.getElementById("edit-exp").value.trim();
-      currentUser.subject = document.getElementById("edit-subject").value.trim();
-      currentUser.gender = document.getElementById("edit-gender").value;
-      currentUser.achievements = document.getElementById("edit-achievements").value.trim();
-
-      const idx = users.findIndex((u) => u.username === currentUser.username);
-      if (idx >= 0) {
-        users[idx] = currentUser;
-        saveUsers(users);
-        saveCurrentUser(currentUser);
-      }
-      closeModal(editProfileModal);
-      alert("Đã lưu thông tin hồ sơ.");
-      renderAll();
-    });
-
-    /* ===== QUIZ RENDER ===== */
-    function renderTestSection() {
-      const container = document.getElementById("test-section-content");
-      if (!container) return;
-
-      if (!currentUser || currentUser.role !== "gia-su") {
-        container.innerHTML =
-          '<p class="muted">Chức năng này chỉ dành cho tài khoản <b>Gia sư</b>. Vui lòng đăng nhập.</p>';
+    // create post
+    $("#submit-post-btn").addEventListener("click", () => {
+      if (!currentUser || currentUser.role !== "parent") {
+        alert("Vui lòng đăng nhập với vai trò phụ huynh để đăng bài.");
         return;
       }
-
-      const statusText = currentUser.tutorVerified
-        ? "ĐÃ XÁC THỰC (bạn có thể nhận lớp)"
-        : "CHƯA XÁC THỰC (cần đạt ≥ 8/10 câu đúng)";
-
-      container.innerHTML = `
-        <div class="quiz-card">
-          <p class="quiz-status">Trạng thái tài khoản gia sư: <b>${statusText}</b></p>
-          <p class="quiz-note">
-            Chọn môn muốn dạy và làm <b>10 câu trắc nghiệm</b>. Điểm đạt: <b>8/10</b>.
-            Bạn có thể làm lại nhiều lần nếu chưa đạt.
-          </p>
-          <div class="form-group">
-            <label>Môn muốn dạy *</label>
-            <select id="quiz-subject" class="select">
-              <option value="math">Toán</option>
-              <option value="physics">Vật lý</option>
-              <option value="chemistry">Hóa học</option>
-              <option value="literature">Ngữ văn</option>
-              <option value="english">Tiếng Anh</option>
-              <option value="biology">Sinh học</option>
-              <option value="history">Lịch sử</option>
-              <option value="geography">Địa lý</option>
-            </select>
-          </div>
-          <button id="quiz-start" class="btn btn-primary">Bắt đầu làm bài</button>
-          <div id="quiz-questions-container" style="margin-top:16px;"></div>
-        </div>
-      `;
-
-      document.getElementById("quiz-start").addEventListener("click", () => {
-        const subject = document.getElementById("quiz-subject").value;
-        const qs = QUIZ_QUESTIONS[subject] || [];
-        const qc = document.getElementById("quiz-questions-container");
-        if (!qs.length) {
-          qc.innerHTML = "<p>Chưa có câu hỏi cho môn này.</p>";
-          return;
-        }
-        let html = `<form id="quiz-form">`;
-        qs.forEach((item, idx) => {
-          html += `
-            <div class="quiz-question">
-              <div class="quiz-question-title">Câu ${idx + 1}: ${item.q}</div>
-              <div class="quiz-options">
-                ${item.o
-                  .map(
-                    (opt, oi) => `
-                  <label>
-                    <input type="radio" name="q${idx}" value="${oi}" style="margin-right:4px;" />
-                    ${opt}
-                  </label>
-                `
-                  )
-                  .join("")}
-              </div>
-            </div>
-          `;
-        });
-        html += `
-          <button type="submit" class="btn btn-primary" style="margin-top:8px;">
-            Nộp bài
-          </button>
-        </form>
-        `;
-        qc.innerHTML = html;
-
-        document
-          .getElementById("quiz-form")
-          .addEventListener("submit", (e) => {
-            e.preventDefault();
-            let correct = 0;
-            qs.forEach((item, idx) => {
-              const chosen = document.querySelector(
-                `input[name="q${idx}"]:checked`
-              );
-              if (chosen && Number(chosen.value) === item.a) correct++;
-            });
-            alert(`Bạn làm đúng ${correct}/${qs.length} câu.`);
-            if (correct >= 8) {
-              alert("Chúc mừng! Bạn đã vượt qua bài kiểm tra năng lực gia sư.");
-              currentUser.tutorVerified = true;
-              const idxUser = users.findIndex(
-                (u) => u.username === currentUser.username
-              );
-              if (idxUser >= 0) {
-                users[idxUser] = currentUser;
-                saveUsers(users);
-                saveCurrentUser(currentUser);
-              }
-              updateAuthUI();
-              showSection("tutor-section");
-              document
-                .querySelectorAll(".nav-page-btn")
-                .forEach((b) => b.classList.remove("active"));
-              document
-                .querySelector('.nav-page-btn[data-target="tutor-section"]')
-                .classList.add("active");
-            } else {
-              alert(
-                "Bạn chưa đạt 8/10. Hãy xem lại đáp án và thử lại bài kiểm tra."
-              );
-            }
-          });
+      const subject = $("#post-subject").value;
+      const grade = $("#post-grade").value.trim();
+      const address = $("#post-address").value.trim();
+      const schedule = $("#post-schedule").value.trim();
+      const fee = $("#post-fee").value.trim();
+      const degree = $("#post-degree").value.trim() || "Không yêu cầu";
+      const gender = $("#post-gender").value.trim() || "Không yêu cầu";
+      const goal = $("#post-goal").value.trim() || "Chung chung";
+      const phone = $("#post-phone").value.trim();
+      if (!grade || !address || !schedule || !fee || !phone) {
+        alert("Vui lòng điền đầy đủ các trường bắt buộc.");
+        return;
+      }
+      const newId = classes.length ? classes[classes.length - 1].id + 1 : 1;
+      classes.push({
+        id: newId,
+        parentUsername: currentUser.username,
+        parentName: currentUser.name,
+        subject,
+        gradeText: grade,
+        address,
+        schedule,
+        fee,
+        degreeReq: degree,
+        genderReq: gender,
+        goal,
+        phone,
+        applicants: [],
+        acceptedTutor: null,
+        rating: null
       });
-    }
-
-    function renderAll() {
-      renderClassesList();
-      renderTutorSection();
+      alert("Đăng bài tìm gia sư thành công (demo).");
       renderParentPosts();
-      renderCreatePostSection();
-      renderTestSection();
-    }
+      renderClassesForTutor();
+    });
 
-    /* INIT */
-    updateAuthUI(); // cũng gọi renderAll bên trong
+    // INIT
+    updateAuthUI();
+    renderClassesForTutor();
+    renderParentPosts();
+    showSection("home-section");
   </script>
 </body>
 </html>
